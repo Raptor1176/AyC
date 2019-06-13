@@ -47,9 +47,20 @@ public class Nodo implements INodo {
 		return Arcos;
 	}
 	
-	public void addArco(Arco arc) {
+	/**
+	 * 
+	 * @param arc
+	 */
+	public void addArco(IArco arc) {
 		this.Arcos.add(arc);
 	}
 	
-	
+	/**
+	 * 
+	 * @param nod
+	 * @return
+	 */
+	public boolean equals(INodo nod) {
+		return this.ID == nod.getID();
+	}
 }

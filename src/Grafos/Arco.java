@@ -2,7 +2,6 @@ package Grafos;
 
 public class Arco implements IArco {
 
-	private int ID;
 	private Nodo NodoIzquierdo;
 	private Nodo NodoDerecho;
 	private int Peso;
@@ -16,7 +15,6 @@ public class Arco implements IArco {
 	 * @param marca
 	 */
 	public Arco(Nodo nodoIzquierdo, Nodo nodoDerecho, int peso) {
-		ID = nodoDerecho.getID() + nodoIzquierdo.getID();
 		NodoDerecho = nodoDerecho;
 		NodoIzquierdo = nodoIzquierdo;
 		Peso = peso;
@@ -79,5 +77,14 @@ public class Arco implements IArco {
 		Marca = marca;
 	}
 	
-	
+	/**
+	 * 
+	 * @param arc
+	 * @return
+	 */
+	public boolean equals(IArco arc) {
+		boolean ni = this.NodoIzquierdo.getID() == arc.getNodoIzquierdo().getID();
+		boolean nd = this.NodoDerecho.getID() == arc.getNodoDerecho().getID();
+		return ni & nd;
+	}
 }
