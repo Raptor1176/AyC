@@ -1,17 +1,17 @@
 package estructuras;
 
-public class NodoA<E>{
+public class NodoCD<E>{
 	
 	private E element;
-	private Lista<NodoA<E>> children;
+	private Lista<NodoCD<E>> children;
 	private int rank;
-	private NodoA<E> father;
+	private NodoCD<E> father;
 	
-	public NodoA(E elem){
+	public NodoCD(E elem){
 		this.element=elem;
-		this.children=new Lista<NodoA<E>>();
+		this.children=new Lista<NodoCD<E>>();
 		this.rank=0;
-		this.father=null;
+		this.father=this;
 	}
 
 	public E getElement() {
@@ -22,8 +22,15 @@ public class NodoA<E>{
 		this.element = element;
 	}
 
-	public Lista<NodoA<E>> getChildren() {
+	public Lista<NodoCD<E>> getChildren() {
 		return children;
+	}
+	
+	public void addChildren(E elem) {
+		NodoCD<E> nuevo=new NodoCD<E>(elem);
+		nuevo.setFather(this);
+		this.rank++;
+		this.children.add(nuevo);
 	}
 
 	public int getRank() {
@@ -38,11 +45,11 @@ public class NodoA<E>{
 		this.rank++;
 	}
 
-	public NodoA<E> getFather() {
+	public NodoCD<E> getFather() {
 		return father;
 	}
 
-	public void setFather(NodoA<E> father) {
+	public void setFather(NodoCD<E> father) {
 		this.father = father;
 	}
 	
