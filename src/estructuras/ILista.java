@@ -1,11 +1,11 @@
 package estructuras;
 
-public interface ILista{
+public interface ILista<E>{
 
 	
-	public void add(int e);
-	public int first();
-	public int last();
-	public int[] all();
+	public void add(E e);
+	public E first();
+	public E last();
+	public E[] all();
 	public int size();
 }
