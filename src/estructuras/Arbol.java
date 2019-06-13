@@ -1,8 +1,54 @@
 package estructuras;
-import estructuras.NodoA;
 
-public class Arbol<E> implements IArbol<E> {
 
+public class Arbol<E> {
+
+	protected class NodoA<A>{		
+		private A element;
+		private Lista<NodoA<A>> children;
+		private int rank;
+		private NodoA<A> father;
+		
+		protected NodoA(A elem){
+			this.element=elem;
+			this.children=new Lista<NodoA<A>>();
+			this.rank=0;
+			this.father=null;
+		}
+
+		protected A getElement() {
+			return element;
+		}
+
+		protected void setElement(A element) {
+			this.element = element;
+		}
+
+		protected Lista<NodoA<A>> getChildren() {
+			return children;
+		}
+
+		protected int getRank() {
+			return rank;
+		}
+
+		protected void setRank(int rank) {
+			this.rank = rank;
+		}
+		
+		protected void incrementRank() {
+			this.rank++;
+		}
+
+		protected NodoA<A> getFather() {
+			return father;
+		}
+
+		protected void setFather(NodoA<A> father) {
+			this.father = father;
+		}
+	}
+		
 	protected NodoA<E> root;
 	protected int size;
 	
