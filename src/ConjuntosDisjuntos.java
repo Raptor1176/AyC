@@ -3,17 +3,17 @@ import estructuras.NodoCD;
 
 public class ConjuntosDisjuntos<E> {
 
-	private int tamaño;
+	private int tamanio;
 	private NodoCD<E>[] conjuntos;
 	private int index;
 	private boolean heuristicas;
 	
 	@SuppressWarnings("unchecked")
-	public ConjuntosDisjuntos(int tamaño, boolean usarHeuristicas) {
-		this.tamaño=tamaño;
+	public ConjuntosDisjuntos(int tamanio, boolean usarHeuristicas) {
+		this.tamanio=tamanio;
 		this.heuristicas=usarHeuristicas;
 		this.index=0;
-		this.conjuntos=new NodoCD[tamaño];
+		this.conjuntos=new NodoCD[tamanio];
 	}
 	
 	
