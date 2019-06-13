@@ -3,8 +3,8 @@ import estructuras.NodoA;
 
 public class Arbol<E> implements IArbol<E> {
 
-	private NodoA<E> root;
-	private int size;
+	protected NodoA<E> root;
+	protected int size;
 	
 	public Arbol(){
 		this.root=null;
@@ -25,11 +25,15 @@ public class Arbol<E> implements IArbol<E> {
 		return n.getFather();
 	}
 	
-	public void addChildren(NodoA<E> n, E elem) {
+	/**
+	 * @return 0 si logró insertar correctamente, 1 si falla
+	 */
+	public int addChildren(NodoA<E> n, E elem) {
 		NodoA<E> nuevo=new NodoA<E>(elem);
 		nuevo.setFather(n);
 		n.incrementRank();
 		n.getChildren().add(nuevo);
+		return 0;
 	}
 
 	public int size() {
