@@ -2,13 +2,13 @@ package estructuras;
 
 public class Arbol<E> {
 
-	private class NArbol<N>{
-		N e;
-		ILista<NArbol<N>> sig;
+	private class NArbol{
+		int e;
+		ILista sig;
 		
-		private NArbol(N e){
+		private NArbol(int e){
 			this.e=e;
-			sig=new Lista<NArbol<N>>();
+			sig=new Lista();
 		}		
 	}
 	
