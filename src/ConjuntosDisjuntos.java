@@ -1,32 +1,32 @@
-import estructuras.NodoCD;
+import estructuras.Elemento;
 
-
-public class ConjuntosDisjuntos<E> {
+public class ConjuntosDisjuntos {
 	
 	// Necesito tambien un arreglo con los elementos para retornarlos en el findset
-	private E[] elementos;
+	private Elemento[] elementos;
 	private int[] padres;
 	private int[] rangos;
 	private boolean heuristicas;
-	
-	@SuppressWarnings("unchecked")
+
 	public ConjuntosDisjuntos(int tamanio, boolean usarHeuristicas) {		
-		
 		this.heuristicas=usarHeuristicas;
 		this.padres= new int[tamanio];
 		this.rangos= new int[tamanio];
-		this.elementos=(E[]) new Object[tamanio];
+		this.elementos=new Elemento[tamanio];
 	}
 	
+	public Elemento[] getElementos() {
+		return this.elementos;
+	}
 	
-	public void makeSet(E elem) {		
+	public void makeSet(Elemento elem) {		
 		int index=elem.getID();
 		this.elementos[index]=elem;
 		this.padres[index]=index;
 		this.rangos[index]=0;		
 	}
 	
-	public E findSet(E elem) {
+	public Elemento findSet(Elemento elem) {
 		// Obtengo el indice del elemento
 		int index=elem.getID();
 		
@@ -38,7 +38,7 @@ public class ConjuntosDisjuntos<E> {
 		}
 		else {
 			// Si no llamo recursivamente para hallar al elemento representante
-			E representante = findSet(this.elementos[this.padres[index]]);
+			Elemento representante = findSet(this.elementos[this.padres[index]]);
 			
 			if (this.heuristicas) {
 				/*
@@ -56,7 +56,7 @@ public class ConjuntosDisjuntos<E> {
 		}
 	}	
 	
-	public void union(E e1, E e2) {
+	public void union(Elemento e1, Elemento e2) {
 		// Obtengo los indices de los elementos
 		int index1= e1.getID();
 		int index2= e2.getID();
