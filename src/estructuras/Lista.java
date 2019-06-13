@@ -1,20 +1,20 @@
 package estructuras;
 import estructuras.ILista;
 
-public class Lista<E> implements ILista<E>{
+public class Lista implements ILista{
 
-	private class Nodo<N>{
-		N e;
-		Nodo<N> sig;
+	private class Nodo{
+		int e;
+		Nodo sig;
 		
-		private Nodo(N e){
+		private Nodo(int e){
 			this.e=e;
 			sig=null;
 		}
 	}
 	
-	private Nodo<E> p;	
-	private Nodo<E> u;	
+	private Nodo p;	
+	private Nodo u;	
 	private int t;
 	
 	public Lista(){
@@ -23,13 +23,13 @@ public class Lista<E> implements ILista<E>{
 		t=0;
 	}
 	
-	public void add(E e){
+	public void add(int e){
 		if(p!=null){
-			Nodo<E> aux= new Nodo<E>(e);
+			Nodo aux= new Nodo(e);
 			u.sig=aux;
 			u=u.sig;
 		}else{
-			p= new Nodo<E>(e);
+			p= new Nodo(e);
 			u=p;
 		}
 		t++;
@@ -40,22 +40,21 @@ public class Lista<E> implements ILista<E>{
 		return t;
 	}
 	@Override
-	public E first() {		
+	public int first() {		
 		return p.e;
 	}
 
 	@Override
-	public E last() {		
+	public int last() {		
 		return u.e;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public E[] all() {
-		E[] arr= null;
+	public int[] all() {
+		int[] arr= null;
 		if(t>0){			
-			arr= (E[]) new Object[t];
-			Nodo<E> a=p;
+			arr= new int[t];
+			Nodo a=p;
 			int i=0;
 			while(a!=null){
 				arr[i]=a.e;
