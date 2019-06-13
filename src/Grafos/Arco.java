@@ -85,6 +85,7 @@ public class Arco implements IArco {
 	public boolean equals(IArco arc) {
 		boolean ni = this.NodoIzquierdo.getID() == arc.getNodoIzquierdo().getID();
 		boolean nd = this.NodoDerecho.getID() == arc.getNodoDerecho().getID();
-		return ni & nd;
+		boolean ps = this.Peso == arc.getPeso();
+		return ni & nd & ps;
 	}
 }
