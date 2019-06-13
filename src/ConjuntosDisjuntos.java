@@ -24,7 +24,7 @@ public class ConjuntosDisjuntos<E> {
 		return conjunto;
 	}
 	
-	public E findSet(E n) {
+	public E findSet(NodoCD<E> n) {
 		if(n.equals(n.getFather())) {
 			// Si el nodo tiene como padre a si mismo
 			// entonces el elemento identificador es el mismo nodo
@@ -36,7 +36,7 @@ public class ConjuntosDisjuntos<E> {
 		}
 	}
 	
-	public NodoCD<E> union(E e1, E e2) {
+	public NodoCD<E> union(NodoCD<E> e1, NodoCD<E> e2) {
 		
 	}
 {
