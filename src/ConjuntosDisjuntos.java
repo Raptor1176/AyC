@@ -15,8 +15,24 @@ public class ConjuntosDisjuntos {
 		this.elementos=new Elemento[tamanio];
 	}
 	
+	
+	/************************************************
+	 * Solo para testing
+	 */
 	public Elemento[] getElementos() {
 		return this.elementos;
+	}
+	
+	public Elemento getElemento(int i) {
+		return this.elementos[i];
+	}
+	
+	public int getPadre(int i) {
+		return this.padres[i];
+	}
+	
+	public int getRango(int i) {
+		return this.rangos[i];
 	}
 	
 	public void makeSet(Elemento elem) {		
@@ -25,6 +41,8 @@ public class ConjuntosDisjuntos {
 		this.padres[index]=index;
 		this.rangos[index]=0;		
 	}
+	
+	/******************************************/
 	
 	public Elemento findSet(Elemento elem) {
 		// Obtengo el indice del elemento

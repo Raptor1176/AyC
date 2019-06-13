@@ -1,5 +1,8 @@
 import estructuras.ILista;
 import estructuras.Lista;
+
+import java.util.Random;
+
 import estructuras.Elemento;
 
 public class Test {
@@ -26,15 +29,33 @@ public class Test {
 		/*
 		 * TEST CONJUNTOS DISJUNTOS
 		 */
-		int max = 20;
-		ElemTest e;
-		Elemento[] elems;
-		ConjuntosDisjuntos conj=new ConjuntosDisjuntos(max,true);
-		for (int i=0; i<max;i++) {
+		int cant = 50;
+		ElemTest e;		
+		ConjuntosDisjuntos conj=new ConjuntosDisjuntos(cant,true);
+		for (int i=0; i<cant;i++) {
 			e=new ElemTest(i);
 			conj.makeSet(e);
 		}
-		elems=conj.getElementos();
+		Elemento[] elems=conj.getElementos();
+		
+		System.out.println("*********** Estado inicial ***********\n");
+		for(Elemento el: elems) {
+			System.out.println("E: "+el.getID()+" Padre: "+conj.getPadre(el.getID())+" Rango: "+conj.getRango(el.getID()));
+		}		
+		
+		Random ran=new Random();
+		int uniones= 40;
+		for (int n=1;n<=uniones;n++) {
+			int e1=ran.nextInt(cant);
+			int e2=ran.nextInt(cant);
+			conj.union(elems[e1],elems[e2]);
+		}
+		
+		System.out.println("\n*********** Estado luego de "+uniones+" uniones ***********\n");		
+		for(Elemento el: elems) {
+			System.out.println("E: "+el.getID()+" Padre: "+conj.getPadre(el.getID())+" Rango: "+conj.getRango(el.getID()));
+		}
+		
 	}
 
 }
