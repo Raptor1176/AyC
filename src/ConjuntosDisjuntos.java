@@ -6,21 +6,39 @@ public class ConjuntosDisjuntos<E> {
 	private int tamaño;
 	private NodoCD<E>[] conjuntos;
 	private int index;
+	private boolean heuristicas;
 	
 	@SuppressWarnings("unchecked")
-	public ConjuntosDisjuntos(int n) {
-		this.tamaño=n;
+	public ConjuntosDisjuntos(int tamaño, boolean usarHeuristicas) {
+		this.tamaño=tamaño;
+		this.heuristicas=usarHeuristicas;
 		this.index=0;
 		this.conjuntos=new NodoCD[tamaño];
 	}
 	
-	public int makeSet(E elem) {
+	
+	public NodoCD<E> makeSet(E elem) {
 		NodoCD<E> conjunto=new NodoCD<E>(elem);
 		this.conjuntos[this.index]=conjunto;
 		this.index++;
-		return index-1;
+		return conjunto;
 	}
 	
+	public E findSet(E n) {
+		if(n.equals(n.getFather())) {
+			// Si el nodo tiene como padre a si mismo
+			// entonces el elemento identificador es el mismo nodo
+			return n.getElement();
+		}
+		else {
+			// Si no llamo recursivamente
+			return findSet(n.getFather());
+		}
+	}
 	
+	public NodoCD<E> union(E e1, E e2) {
+		
+	}
+{
 	
 }

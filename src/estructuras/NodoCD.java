@@ -53,5 +53,9 @@ public class NodoCD<E>{
 		this.father = father;
 	}
 	
+	public boolean equals(NodoCD<E> n) {
+		return this.element.equals(n.getElement());
+	}
+	
 		
 }
