@@ -56,5 +56,16 @@ public class Grafo {
 		int[] nodos;
 		Object[][] arcos;
 	}
+	
+	
+	public String toString(){
+		String aux="Nodos:";
+		for (int n: nodos)
+			aux+=" "+nodos[n];
+		aux+="\nArcos:";
+		for (Pesado a: arcos)
+			aux+=" (["+a.arco.nodo1+"-"+a.arco.nodo2+"],"+a.peso+")";		
+		return aux;
+	}
 
 }

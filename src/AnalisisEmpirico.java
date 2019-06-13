@@ -11,6 +11,9 @@ import com.google.gson.GsonBuilder;
 			try{
 				Grafo grafo = getGrafo(500,40000);
 				System.out.println("Grafo conexo con "+ grafo.getNodosCount() + " nodos y "+ grafo.getArcosCount() + " arcos construido");
+				System.out.println(grafo.toString());
+				
+				
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
@@ -43,6 +46,6 @@ import com.google.gson.GsonBuilder;
 				return new Grafo(gr);
 			} catch (Exception e) {
 				throw new Exception(jsonString);
-			}
+			}			
 		}
 	}
