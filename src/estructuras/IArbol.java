@@ -2,8 +2,8 @@ package estructuras;
 
 public interface IArbol<E> {
 
-	public E raiz();
+	public E root();
 	
-	
+	public int size();
 	
 }
