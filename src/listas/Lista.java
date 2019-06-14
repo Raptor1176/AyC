@@ -3,7 +3,7 @@ import listas.ILista;
 
 public class Lista<E> implements ILista<E>{
 
-	private class Nodo<N>{
+	protected class Nodo<N>{
 		N e;
 		Nodo<N> sig;
 		
@@ -13,8 +13,8 @@ public class Lista<E> implements ILista<E>{
 		}
 	}
 	
-	private Nodo<E> p;	
-	private Nodo<E> u;
+	protected Nodo<E> p;	
+	protected Nodo<E> u;
 	private Nodo<E> a;	
 	private int t;
 	
