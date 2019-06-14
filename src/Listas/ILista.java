@@ -1,4 +1,4 @@
-package estructuras;
+package Listas;
 
 public interface ILista<E>{
 

@@ -1,6 +1,6 @@
 package Grafos;
 
-import estructuras.Lista;
+import Listas.Lista;
 
 public class Nodo implements INodo {
 	

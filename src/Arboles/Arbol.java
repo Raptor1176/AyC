@@ -1,5 +1,6 @@
-package estructuras;
+package Arboles;
 
+import Listas.Lista;
 
 public class Arbol<E> {
 
@@ -72,7 +73,7 @@ public class Arbol<E> {
 	}
 	
 	/**
-	 * @return 0 si logró insertar correctamente, 1 si falla
+	 * @return 0 si logrï¿½ insertar correctamente, 1 si falla
 	 */
 	public int addChildren(NodoA<E> n, E elem) {
 		NodoA<E> nuevo=new NodoA<E>(elem);

@@ -1,4 +1,4 @@
-package estructuras;
+package ConjuntosDisjuntos;
 
 public interface Elemento {
 	
