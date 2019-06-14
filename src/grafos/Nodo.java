@@ -1,6 +1,6 @@
-package grafos;
+package Grafos;
 
-import listas.Lista;
+import Listas.Lista;
 
 public class Nodo implements INodo {
 	

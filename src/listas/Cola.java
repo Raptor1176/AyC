@@ -1,4 +1,4 @@
-package listas;
+package Listas;
 
 public class Cola<E> extends Lista<E>{
 

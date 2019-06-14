@@ -1,4 +1,4 @@
-package conjuntosDisjuntos;
+package ConjuntosDisjuntos;
 
 public interface Elemento<E> {
 	
