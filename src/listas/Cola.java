@@ -15,4 +15,8 @@ public class Cola<E> extends Lista<E>{
 	public void addLast(E e){
 		this.add(e);
 	}
+	
+	public boolean Vacio(){
+		return (p==null);
+	}
 }
