@@ -6,6 +6,10 @@ public class Cola<E> extends Lista<E>{
 		super();
 	}
 	
+	public E tope(){
+		return p.e;
+	}
+	
 	public E deleteFirst(){
 		E elm= p.e;
 		p=p.sig;
@@ -16,7 +20,7 @@ public class Cola<E> extends Lista<E>{
 		this.add(e);
 	}
 	
-	public boolean Vacio(){
+	public boolean Vacia(){
 		return (p==null);
 	}
 }
