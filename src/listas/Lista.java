@@ -1,5 +1,5 @@
-package Listas;
-import Listas.ILista;
+package listas;
+import listas.ILista;
 
 public class Lista<E> implements ILista<E>{
 
@@ -26,8 +26,7 @@ public class Lista<E> implements ILista<E>{
 	
 	public void add(E e){
 		if(p!=null){
-			Nodo<E> aux= new Nodo<E>(e);
-			u.sig=aux;
+			u.sig=new Nodo<E>(e);
 			u=u.sig;
 		}else{
 			p= new Nodo<E>(e);

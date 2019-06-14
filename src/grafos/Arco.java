@@ -1,4 +1,4 @@
-package Grafos;
+package grafos;
 
 public class Arco implements IArco {
 

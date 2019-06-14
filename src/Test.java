@@ -1,17 +1,14 @@
 import java.util.Random;
 
-<<<<<<< HEAD
 import conjuntosDisjuntos.ConjuntoDisjunto;
 import conjuntosDisjuntos.Elemento;
 import listas.Cola;
 import listas.ILista;
 import listas.Lista;
-=======
-import ConjuntosDisjuntos.ConjuntoDisjunto;
-import ConjuntosDisjuntos.Elemento;
-import Listas.ILista;
-import Listas.Lista;
->>>>>>> 6bf0c8853ea21b22a93e606c0ae712f0e41bee3a
+import conjuntosDisjuntos.ConjuntoDisjunto;
+import conjuntosDisjuntos.Elemento;
+import listas.ILista;
+import listas.Lista;
 
 public class Test {
 
@@ -37,14 +34,10 @@ public class Test {
 		/*
 		 * TEST CONJUNTOS DISJUNTOS
 		 */
-<<<<<<< HEAD
-		/*
+		
 		int cant = 50;
-=======
-		int cant = 20;
 		int uniones= 254;
 		
->>>>>>> 6bf0c8853ea21b22a93e606c0ae712f0e41bee3a
 		ElemTest e;		
 		ConjuntoDisjunto<Integer> conj=new ConjuntoDisjunto<Integer>(cant,true);
 		
@@ -76,26 +69,11 @@ public class Test {
 		for(Elemento<Integer> el: elems) {
 			System.out.println("E: "+el.getID()+" Padre: "+conj.getPadre(el.getID())+" Rango: "+conj.getRango(el.getID()));
 		}
-		*/
 		
-		Lista<Integer> q= new Lista<Integer>();
 		
-		q.add(8);
-		q.add(4);
-		q.add(3);
-		q.add(5);
-		
-		q.start();
-		while(q.hasNext())
-			System.out.print(q.next());
-		
-<<<<<<< HEAD
-			
-=======
 		// Imprimo como quedaron los conjuntos y la cantidad
 		System.out.println("\n*********** toString luego de "+uniones+" uniones ***********\n");
 		System.out.println(conj.toString());
->>>>>>> 6bf0c8853ea21b22a93e606c0ae712f0e41bee3a
 	}
 
 }
