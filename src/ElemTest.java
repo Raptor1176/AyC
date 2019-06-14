@@ -1,6 +1,6 @@
-import conjuntosDisjuntos.Elemento;
+import ConjuntosDisjuntos.Elemento;
 
-public class ElemTest implements Elemento{
+public class ElemTest implements Elemento<Integer>{
 	
 	private int id;
 	
@@ -9,6 +9,10 @@ public class ElemTest implements Elemento{
 	}
 	
 	public int getID() {
+		return this.id;
+	}
+	
+	public Integer getElemento() {
 		return this.id;
 	}
 

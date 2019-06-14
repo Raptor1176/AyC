@@ -1,10 +1,17 @@
 import java.util.Random;
 
+<<<<<<< HEAD
 import conjuntosDisjuntos.ConjuntoDisjunto;
 import conjuntosDisjuntos.Elemento;
 import listas.Cola;
 import listas.ILista;
 import listas.Lista;
+=======
+import ConjuntosDisjuntos.ConjuntoDisjunto;
+import ConjuntosDisjuntos.Elemento;
+import Listas.ILista;
+import Listas.Lista;
+>>>>>>> 6bf0c8853ea21b22a93e606c0ae712f0e41bee3a
 
 public class Test {
 
@@ -30,31 +37,43 @@ public class Test {
 		/*
 		 * TEST CONJUNTOS DISJUNTOS
 		 */
+<<<<<<< HEAD
 		/*
 		int cant = 50;
+=======
+		int cant = 20;
+		int uniones= 254;
+		
+>>>>>>> 6bf0c8853ea21b22a93e606c0ae712f0e41bee3a
 		ElemTest e;		
-		ConjuntoDisjunto conj=new ConjuntoDisjunto(cant,true);
+		ConjuntoDisjunto<Integer> conj=new ConjuntoDisjunto<Integer>(cant,true);
+		
+		// Hago CANT de make set
 		for (int i=0; i<cant;i++) {
 			e=new ElemTest(i);
 			conj.makeSet(e);
 		}
-		Elemento[] elems=conj.getElementos();
 		
+		
+		Elemento<Integer>[] elems=conj.getElementos();
+		
+		// Imprimo estado inicial
 		System.out.println("*********** Estado inicial ***********\n");
-		for(Elemento el: elems) {
+		for(Elemento<Integer> el: elems) {
 			System.out.println("E: "+el.getID()+" Padre: "+conj.getPadre(el.getID())+" Rango: "+conj.getRango(el.getID()));
 		}		
 		
-		Random ran=new Random();
-		int uniones= 40;
+		// Hago UNIONES de uniones random 
+		Random ran=new Random();		
 		for (int n=1;n<=uniones;n++) {
 			int e1=ran.nextInt(cant);
 			int e2=ran.nextInt(cant);
 			conj.union(elems[e1],elems[e2]);
 		}
 		
+		// Imprimo el estado final
 		System.out.println("\n*********** Estado luego de "+uniones+" uniones ***********\n");		
-		for(Elemento el: elems) {
+		for(Elemento<Integer> el: elems) {
 			System.out.println("E: "+el.getID()+" Padre: "+conj.getPadre(el.getID())+" Rango: "+conj.getRango(el.getID()));
 		}
 		*/
@@ -70,7 +89,13 @@ public class Test {
 		while(q.hasNext())
 			System.out.print(q.next());
 		
+<<<<<<< HEAD
 			
+=======
+		// Imprimo como quedaron los conjuntos y la cantidad
+		System.out.println("\n*********** toString luego de "+uniones+" uniones ***********\n");
+		System.out.println(conj.toString());
+>>>>>>> 6bf0c8853ea21b22a93e606c0ae712f0e41bee3a
 	}
 
 }

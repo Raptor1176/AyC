@@ -1,4 +1,4 @@
-package listas;
+package Listas;
 
 public interface ILista<E>{
 

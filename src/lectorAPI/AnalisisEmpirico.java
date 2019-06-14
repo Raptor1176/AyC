@@ -6,7 +6,7 @@ import java.util.Scanner;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import grafos.Grafo;
+import Grafos.Grafo;
 
 	public class AnalisisEmpirico{
 		

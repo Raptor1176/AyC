@@ -1,4 +1,4 @@
-package arboles;
+package Arboles;
 
 public class ArbolBin<E> extends Arbol<E>{
 	

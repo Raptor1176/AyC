@@ -1,13 +1,16 @@
-package conjuntosDisjuntos;
+package ConjuntosDisjuntos;
 
-public class ConjuntoDisjunto {
-	
-	// Necesito tambien un arreglo con los elementos para retornarlos en el findset
-	private Elemento[] elementos;
+public class ConjuntoDisjunto<E> {
+		
 	private int[] padres;
 	private int[] rangos;
 	private boolean heuristicas;
+	
+	// Necesito tambien un arreglo con los elementos para retornarlos en el findset
+	private Elemento<E>[] elementos;
+	
 
+	@SuppressWarnings("unchecked")
 	public ConjuntoDisjunto(int tamanio, boolean usarHeuristicas) {		
 		this.heuristicas=usarHeuristicas;
 		this.padres= new int[tamanio];
@@ -19,11 +22,12 @@ public class ConjuntoDisjunto {
 	/************************************************
 	 * Solo para testing
 	 */
-	public Elemento[] getElementos() {
+	
+	public Elemento<E>[] getElementos() {
 		return this.elementos;
 	}
 	
-	public Elemento getElemento(int i) {
+	public Elemento<E> getElemento(int i) {
 		return this.elementos[i];
 	}
 	
@@ -35,16 +39,38 @@ public class ConjuntoDisjunto {
 		return this.rangos[i];
 	}
 	
-	public void makeSet(Elemento elem) {		
-		int index=elem.getID();
-		this.elementos[index]=elem;
-		this.padres[index]=index;
-		this.rangos[index]=0;		
+	public String toString() {
+		String s="";
+		String[] conjuntos= new String[elementos.length];
+		for (int i=0; i<conjuntos.length;i++) {  // n veces
+			conjuntos[i]="";
+		}	
+		int p;
+		for (int j=0; j<elementos.length;j++) {	// n veces
+			p=padres[j];
+			conjuntos[p]+=" "+elementos[j].getID();
+		}
+		int cantConjuntos=0;
+		for (int k=0; k<conjuntos.length;k++) { // n veces
+			if(!conjuntos[k].equals("")) {
+				s+=" ["+conjuntos[k]+" ]";
+				cantConjuntos++;
+			}
+		}
+		s+="\n Cantidad de conjuntos: "+cantConjuntos;
+		return s;
 	}
 	
 	/******************************************/
 	
-	public Elemento findSet(Elemento elem) {
+	public void makeSet(Elemento<E> elem) {		
+		int index=elem.getID();
+		this.elementos[index]=elem;
+		this.padres[index]=index;
+		this.rangos[index]=0;
+	}
+	
+	public Elemento<E> findSet(Elemento<E> elem) {
 		// Obtengo el indice del elemento
 		int index=elem.getID();
 		
@@ -56,7 +82,7 @@ public class ConjuntoDisjunto {
 		}
 		else {
 			// Si no llamo recursivamente para hallar al elemento representante
-			Elemento representante = findSet(this.elementos[this.padres[index]]);
+			Elemento<E> representante = findSet(this.elementos[this.padres[index]]);
 			
 			if (this.heuristicas) {
 				/*
@@ -74,7 +100,7 @@ public class ConjuntoDisjunto {
 		}
 	}	
 	
-	public void union(Elemento e1, Elemento e2) {
+	public void union(Elemento<E> e1, Elemento<E> e2) {
 		// Obtengo los indices de los elementos
 		int index1= e1.getID();
 		int index2= e2.getID();
@@ -85,11 +111,10 @@ public class ConjuntoDisjunto {
 		
 		if(padreE1==padreE2) {
 			// Mismos padres, ambos pertenecen al mismo conjunto
-			// Entonces hay que hacer nada
+			// Entonces no hay que hacer nada
 			return ;
 		}
 		else {
-			
 			if (this.heuristicas) {				
 				/*
 				 * Heuristica de union por rangos
@@ -124,6 +149,7 @@ public class ConjuntoDisjunto {
 				// Sino, seteo como padre de e2 al padre de e1
 				this.padres[index2]=this.padres[index1];
 			}
+			
 		}
 	}
 	

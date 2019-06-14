@@ -1,4 +1,4 @@
-package grafos;
+package Grafos;
 
 public interface IGrafo {
 

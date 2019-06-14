@@ -1,6 +1,6 @@
-package arboles;
+package Arboles;
 
-import listas.Lista;
+import Listas.Lista;
 
 public class Arbol<E> {
 
