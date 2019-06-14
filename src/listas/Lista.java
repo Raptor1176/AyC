@@ -1,5 +1,5 @@
-package Listas;
-import Listas.ILista;
+package listas;
+import listas.ILista;
 
 public class Lista<E> implements ILista<E>{
 

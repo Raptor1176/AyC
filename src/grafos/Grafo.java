@@ -1,4 +1,4 @@
-package Grafos;
+package grafos;
 
 import java.util.ArrayList;
 
@@ -47,7 +47,7 @@ public class Grafo implements IGrafo {
 			System.out.println(n.getID());
 			n.getArcos().start();
 			while(n.getArcos().hasNext())
-				System.out.print(n.getArcos().next().getPeso()+" ");
+				System.out.print(n.getArcos().next().toString()+" ");
 			System.out.println();
 			
 		}

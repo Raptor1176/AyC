@@ -1,4 +1,4 @@
-package ConjuntosDisjuntos;
+package conjuntosDisjuntos;
 
 public class ConjuntoDisjunto {
 	

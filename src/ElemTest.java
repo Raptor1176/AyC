@@ -1,4 +1,4 @@
-import ConjuntosDisjuntos.Elemento;
+import conjuntosDisjuntos.Elemento;
 
 public class ElemTest implements Elemento{
 	

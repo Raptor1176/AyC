@@ -1,9 +1,9 @@
 import java.util.Random;
 
-import ConjuntosDisjuntos.ConjuntoDisjunto;
-import ConjuntosDisjuntos.Elemento;
-import Listas.ILista;
-import Listas.Lista;
+import conjuntosDisjuntos.ConjuntoDisjunto;
+import conjuntosDisjuntos.Elemento;
+import listas.ILista;
+import listas.Lista;
 
 public class Test {
 
