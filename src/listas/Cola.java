@@ -20,7 +20,7 @@ public class Cola<E> extends Lista<E>{
 		this.add(e);
 	}
 	
-	public boolean Vacia(){
+	public boolean vacia(){
 		return (p==null);
 	}
 }
