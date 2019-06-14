@@ -1,9 +1,9 @@
-import estructuras.ILista;
-import estructuras.Lista;
-
 import java.util.Random;
 
-import estructuras.Elemento;
+import ConjuntosDisjuntos.ConjuntoDisjunto;
+import ConjuntosDisjuntos.Elemento;
+import Listas.ILista;
+import Listas.Lista;
 
 public class Test {
 
@@ -31,7 +31,7 @@ public class Test {
 		 */
 		int cant = 50;
 		ElemTest e;		
-		ConjuntosDisjuntos conj=new ConjuntosDisjuntos(cant,true);
+		ConjuntoDisjunto conj=new ConjuntoDisjunto(cant,true);
 		for (int i=0; i<cant;i++) {
 			e=new ElemTest(i);
 			conj.makeSet(e);

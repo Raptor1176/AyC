@@ -1,6 +1,6 @@
-import estructuras.Elemento;
+package ConjuntosDisjuntos;
 
-public class ConjuntosDisjuntos {
+public class ConjuntoDisjunto {
 	
 	// Necesito tambien un arreglo con los elementos para retornarlos en el findset
 	private Elemento[] elementos;
@@ -8,7 +8,7 @@ public class ConjuntosDisjuntos {
 	private int[] rangos;
 	private boolean heuristicas;
 
-	public ConjuntosDisjuntos(int tamanio, boolean usarHeuristicas) {		
+	public ConjuntoDisjunto(int tamanio, boolean usarHeuristicas) {		
 		this.heuristicas=usarHeuristicas;
 		this.padres= new int[tamanio];
 		this.rangos= new int[tamanio];
