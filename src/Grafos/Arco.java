@@ -88,4 +88,8 @@ public class Arco implements IArco {
 		boolean ps = this.Peso == arc.getPeso();
 		return ni & nd & ps;
 	}
+	
+	public String toString(){
+		return "["+NodoIzquierdo.getID()+"-"+NodoDerecho.getID()+"-"+this.Peso+"]";
+	}
 }

@@ -1,6 +1,8 @@
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Scanner;
+import Grafos.Grafo;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -9,9 +11,10 @@ import com.google.gson.GsonBuilder;
 		public static void main(String[] args) throws IOException {
 			
 			try{
-				Grafo grafo = getGrafo(500,40000);
-				System.out.println("Grafo conexo con "+ grafo.getNodosCount() + " nodos y "+ grafo.getArcosCount() + " arcos construido");
-				System.out.println(grafo.toString());
+				Grafo grafo = getGrafo(5,4);
+				grafo.print();
+				//System.out.println("Grafo conexo con "+ grafo.getNodosCount() + " nodos y "+ grafo.getArcosCount() + " arcos construido");
+				//System.out.println(grafo.toString());
 				
 				
 			} catch (Exception e) {
@@ -43,7 +46,9 @@ import com.google.gson.GsonBuilder;
 			Gson gson = new GsonBuilder().create();
 			try{
 				Grafo.GrafoObj gr = gson.fromJson(jsonString, Grafo.GrafoObj.class);
-				return new Grafo(gr);
+				Grafo g= new Grafo(gr);
+				
+				return g;
 			} catch (Exception e) {
 				throw new Exception(jsonString);
 			}			

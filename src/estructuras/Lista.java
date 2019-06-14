@@ -14,7 +14,8 @@ public class Lista<E> implements ILista<E>{
 	}
 	
 	private Nodo<E> p;	
-	private Nodo<E> u;	
+	private Nodo<E> u;
+	private Nodo<E> a;	
 	private int t;
 	
 	public Lista(){
@@ -49,22 +50,20 @@ public class Lista<E> implements ILista<E>{
 		return u.e;
 	}
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public E[] all() {
-		E[] arr= null;
-		if(t>0){			
-			arr= (E[]) new Object[t];
-			Nodo<E> a=p;
-			int i=0;
-			while(a!=null){
-				arr[i]=a.e;
-				i++;
-				a=a.sig;
-			}
-		}
-		return arr;	
+	public void start(){
+		a=p;
 	}
-
+	
+	public boolean hasNext(){
+		if (a!=null)
+			return true;
+		return false;
+	}
+	
+	public E next(){
+		E elem= a.e;
+		a=a.sig;
+		return elem;
+	}
 	
 }
