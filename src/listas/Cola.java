@@ -2,6 +2,10 @@ package listas;
 
 public class Cola<E> extends Lista<E>{
 
+	public Cola(){
+		super();
+	}
+	
 	public E deleteFirst(){
 		E elm= p.e;
 		p=p.sig;
