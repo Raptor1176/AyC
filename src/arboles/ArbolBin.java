@@ -1,7 +1,12 @@
 package arboles;
 
 public class ArbolBin<E> extends Arbol<E>{
-
+	
+	
+	public ArbolBin(){
+		super();
+	}
+	
 	public int addChildren(NodoA<E> n, E elem) {
 		if (n.getChildren().size()<2){
 			NodoA<E> nuevo=new NodoA<E>(elem);
