@@ -1,12 +1,14 @@
-package conjuntosDisjuntos;
+package ConjuntosDisjuntos;
 
 public class ConjuntoDisjunto<E> {
-	
-	// Necesito tambien un arreglo con los elementos para retornarlos en el findset
-	private Elemento<E>[] elementos;
+		
 	private int[] padres;
 	private int[] rangos;
 	private boolean heuristicas;
+	
+	// Necesito tambien un arreglo con los elementos para retornarlos en el findset
+	private Elemento<E>[] elementos;
+	
 
 	@SuppressWarnings("unchecked")
 	public ConjuntoDisjunto(int tamanio, boolean usarHeuristicas) {		
@@ -20,6 +22,7 @@ public class ConjuntoDisjunto<E> {
 	/************************************************
 	 * Solo para testing
 	 */
+	
 	public Elemento<E>[] getElementos() {
 		return this.elementos;
 	}
@@ -38,25 +41,20 @@ public class ConjuntoDisjunto<E> {
 	
 	public String toString() {
 		String s="";
+		String[] conjuntos= new String[elementos.length];
+		for (int i=0; i<conjuntos.length;i++) {  // n veces
+			conjuntos[i]="";
+		}	
 		int p;
-		int[] visitados= new int[elementos.length];
-		for (int i=0;i<visitados.length;i++) {
-			visitados[i]=0;
+		for (int j=0; j<elementos.length;j++) {	// n veces
+			p=padres[j];
+			conjuntos[p]+=" "+elementos[j].getID();
 		}
-		int i=0;
-		while(i<elementos.length) {
-			s+="[ ";
-			s+=elementos[i].getID();
-			visitados[i]=1;
-			p=padres[i]; // el padre de elemento i
-			while(visitados[p]==0) {
-				s+=" "+elementos[p].getID();
-				visitados[p]=1;
-				p=padres[p];
+		for (int k=0; k<conjuntos.length;k++) { // n veces
+			if(!conjuntos[k].equals("")) {
+				s+=" ["+conjuntos[k]+" ]";
 			}
-			s+=" ]";
-			i++;
-		}
+		}		
 		return s;
 	}
 	
@@ -66,7 +64,7 @@ public class ConjuntoDisjunto<E> {
 		int index=elem.getID();
 		this.elementos[index]=elem;
 		this.padres[index]=index;
-		this.rangos[index]=0;		
+		this.rangos[index]=0;
 	}
 	
 	public Elemento<E> findSet(Elemento<E> elem) {
@@ -110,11 +108,10 @@ public class ConjuntoDisjunto<E> {
 		
 		if(padreE1==padreE2) {
 			// Mismos padres, ambos pertenecen al mismo conjunto
-			// Entonces hay que hacer nada
+			// Entonces no hay que hacer nada
 			return ;
 		}
 		else {
-			
 			if (this.heuristicas) {				
 				/*
 				 * Heuristica de union por rangos
@@ -149,6 +146,7 @@ public class ConjuntoDisjunto<E> {
 				// Sino, seteo como padre de e2 al padre de e1
 				this.padres[index2]=this.padres[index1];
 			}
+			
 		}
 	}
 	

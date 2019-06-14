@@ -1,4 +1,4 @@
-import conjuntosDisjuntos.Elemento;
+import ConjuntosDisjuntos.Elemento;
 
 public class ElemTest implements Elemento<Integer>{
 	

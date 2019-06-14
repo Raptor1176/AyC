@@ -1,9 +1,9 @@
 import java.util.Random;
 
-import conjuntosDisjuntos.ConjuntoDisjunto;
-import conjuntosDisjuntos.Elemento;
-import listas.ILista;
-import listas.Lista;
+import ConjuntosDisjuntos.ConjuntoDisjunto;
+import ConjuntosDisjuntos.Elemento;
+import Listas.ILista;
+import Listas.Lista;
 
 public class Test {
 
@@ -29,8 +29,8 @@ public class Test {
 		/*
 		 * TEST CONJUNTOS DISJUNTOS
 		 */
-		int cant = 6;
-		int uniones= 9;
+		int cant = 24;
+		int uniones= 85;
 		
 		ElemTest e;		
 		ConjuntoDisjunto<Integer> conj=new ConjuntoDisjunto<Integer>(cant,true);
