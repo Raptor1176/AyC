@@ -2,6 +2,7 @@ import java.util.Random;
 
 import conjuntosDisjuntos.ConjuntoDisjunto;
 import conjuntosDisjuntos.Elemento;
+import heap.Heap;
 import listas.Cola;
 import listas.ILista;
 import listas.Lista;
@@ -35,8 +36,8 @@ public class Test {
 		 * TEST CONJUNTOS DISJUNTOS
 		 */
 		
-		int cant = 50;
-		int uniones= 254;
+		int cant = 10;
+		int uniones= 20;
 		
 		ElemTest e;		
 		ConjuntoDisjunto<Integer> conj=new ConjuntoDisjunto<Integer>(cant,true);
@@ -74,6 +75,23 @@ public class Test {
 		// Imprimo como quedaron los conjuntos y la cantidad
 		System.out.println("\n*********** toString luego de "+uniones+" uniones ***********\n");
 		System.out.println(conj.toString());
+		
+		
+		int cantHeap= 15;
+		
+		Heap<Integer> h=new Heap<Integer>(cantHeap);
+		ElemTest el;
+		
+		for(int i=0;i<cantHeap;i++) {			
+			el=new ElemTest(ran.nextInt(50));
+			h.insert(el);
+		}
+		
+		System.out.println("Heap:\n"+h.toString());
+		System.out.println("Heap size:"+h.size());
+		System.out.println("Heap min:"+h.min().getElemento());
+		
+		
 	}
 
 }
