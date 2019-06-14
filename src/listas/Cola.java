@@ -7,12 +7,15 @@ public class Cola<E> extends Lista<E>{
 	}
 	
 	public E tope(){
-		return p.e;
+		if(p!=null)
+			return p.e;
+		return null;
 	}
 	
 	public E deleteFirst(){
 		E elm= p.e;
 		p=p.sig;
+		t--;
 		return elm;	
 	}
 	

@@ -16,7 +16,7 @@ public class Lista<E> implements ILista<E>{
 	protected Nodo<E> p;	
 	protected Nodo<E> u;
 	private Nodo<E> a;	
-	private int t;
+	protected int t;
 	
 	public Lista(){
 		p=null;
@@ -55,9 +55,7 @@ public class Lista<E> implements ILista<E>{
 	}
 	
 	public boolean hasNext(){
-		if (a!=null)
-			return true;
-		return false;
+		return (a!=null);
 	}
 	
 	public E next(){

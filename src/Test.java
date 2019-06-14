@@ -2,6 +2,7 @@ import java.util.Random;
 
 import conjuntosDisjuntos.ConjuntoDisjunto;
 import conjuntosDisjuntos.Elemento;
+import listas.Cola;
 import listas.ILista;
 import listas.Lista;
 
@@ -29,6 +30,7 @@ public class Test {
 		/*
 		 * TEST CONJUNTOS DISJUNTOS
 		 */
+		/*
 		int cant = 50;
 		ElemTest e;		
 		ConjuntoDisjunto conj=new ConjuntoDisjunto(cant,true);
@@ -55,7 +57,20 @@ public class Test {
 		for(Elemento el: elems) {
 			System.out.println("E: "+el.getID()+" Padre: "+conj.getPadre(el.getID())+" Rango: "+conj.getRango(el.getID()));
 		}
+		*/
 		
+		Lista<Integer> q= new Lista<Integer>();
+		
+		q.add(8);
+		q.add(4);
+		q.add(3);
+		q.add(5);
+		
+		q.start();
+		while(q.hasNext())
+			System.out.print(q.next());
+		
+			
 	}
 
 }
