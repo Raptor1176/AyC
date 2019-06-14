@@ -29,22 +29,24 @@ public class Test {
 		/*
 		 * TEST CONJUNTOS DISJUNTOS
 		 */
-		int cant = 50;
+		int cant = 6;
+		int uniones= 9;
+		
 		ElemTest e;		
-		ConjuntoDisjunto conj=new ConjuntoDisjunto(cant,true);
+		ConjuntoDisjunto<Integer> conj=new ConjuntoDisjunto<Integer>(cant,true);
 		for (int i=0; i<cant;i++) {
 			e=new ElemTest(i);
 			conj.makeSet(e);
 		}
-		Elemento[] elems=conj.getElementos();
+		Elemento<Integer>[] elems=conj.getElementos();
 		
 		System.out.println("*********** Estado inicial ***********\n");
-		for(Elemento el: elems) {
+		for(Elemento<Integer> el: elems) {
 			System.out.println("E: "+el.getID()+" Padre: "+conj.getPadre(el.getID())+" Rango: "+conj.getRango(el.getID()));
 		}		
 		
 		Random ran=new Random();
-		int uniones= 40;
+		
 		for (int n=1;n<=uniones;n++) {
 			int e1=ran.nextInt(cant);
 			int e2=ran.nextInt(cant);
@@ -52,10 +54,12 @@ public class Test {
 		}
 		
 		System.out.println("\n*********** Estado luego de "+uniones+" uniones ***********\n");		
-		for(Elemento el: elems) {
+		for(Elemento<Integer> el: elems) {
 			System.out.println("E: "+el.getID()+" Padre: "+conj.getPadre(el.getID())+" Rango: "+conj.getRango(el.getID()));
 		}
 		
+		System.out.println("\n*********** toString luego de "+uniones+" uniones ***********\n");
+		System.out.println(conj.toString());
 	}
 
 }
