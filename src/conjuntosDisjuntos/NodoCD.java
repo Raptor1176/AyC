@@ -1,6 +1,6 @@
-package ConjuntosDisjuntos;
+package conjuntosDisjuntos;
 
-import Listas.Lista;
+import listas.Lista;
 
 public class NodoCD<E>{
 	

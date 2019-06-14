@@ -1,4 +1,4 @@
-package Grafos;
+package grafos;
 
 import java.util.ArrayList;
 
@@ -12,7 +12,7 @@ public class Grafo implements IGrafo {
 		// Guardamos los nodos en un arreglo de enteros.
 		int [] nodosJson = grafoJson.nodos;
 		// Inicializamos la lista de nodos del grafo.
-		this.nodos = (Nodo[]) new Object[nodosJson.length];
+		this.nodos = new Nodo[nodosJson.length];
 		// Por cada elemento en el arreglo de enteros, creamos un nodo.
 		for(int n : nodosJson) {
 			Nodo nod = new Nodo(n);
@@ -25,19 +25,31 @@ public class Grafo implements IGrafo {
 		// Por cada elemento en la lista de arcos
 		for (int i = 0; i<arcosJson.length; i++){
 			// Obtenemos los nodos que conecta el arco.
-			Nodo nodI = this.nodos[((Integer) ((ArrayList) arcosJson[i][0]).get(0)).intValue()];
-			Nodo nodD = this.nodos[((Integer) ((ArrayList) arcosJson[i][0]).get(1)).intValue()];
+			Nodo nodI = this.nodos[((Double) ((ArrayList) arcosJson[i][0]).get(0)).intValue()];
+			Nodo nodD = this.nodos[((Double) ((ArrayList) arcosJson[i][0]).get(1)).intValue()];
 			// Obtenemos el peso del arco.
-			int peso = ((Integer) arcosJson[i][1]).intValue();
+
+			int peso = ((Double) arcosJson[i][1]).intValue();
 			// Creamos el arco pasando los nodos previamente creados y el peso.
 			Arco arc = new Arco(nodI, nodD, peso);
-			nodI.addArco(arc);
+			nodI.addArco(arc);			
 			nodD.addArco(arc);
-		}
+		}		
 	}
 	
 	public static class GrafoObj {
 		int[] nodos;
 		Object[][] arcos;
+	}
+	
+	public void print(){
+		for(Nodo n: nodos){
+			System.out.println(n.getID());
+			n.getArcos().start();
+			while(n.getArcos().hasNext())
+				System.out.print(n.getArcos().next().toString()+" ");
+			System.out.println();
+			
+		}
 	}
 }
