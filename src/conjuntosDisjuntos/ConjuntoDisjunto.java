@@ -50,11 +50,14 @@ public class ConjuntoDisjunto<E> {
 			p=padres[j];
 			conjuntos[p]+=" "+elementos[j].getID();
 		}
+		int cantConjuntos=0;
 		for (int k=0; k<conjuntos.length;k++) { // n veces
 			if(!conjuntos[k].equals("")) {
 				s+=" ["+conjuntos[k]+" ]";
+				cantConjuntos++;
 			}
-		}		
+		}
+		s+="\n Cantidad de conjuntos: "+cantConjuntos;
 		return s;
 	}
 	
