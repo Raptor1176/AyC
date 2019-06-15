@@ -46,6 +46,9 @@ public class Grafo implements IGrafo {
 	
 	public void BFS() {
 		this.padre = new int[this.nodos.length];
+		for(int i=0; i < this.padre.length; i++) {
+			this.padre[i] = -1;
+		}
 		this.nivel = new int[this.nodos.length];
 		for(Nodo n: this.nodos) {
 			n.setMarca(Color.WHITE);

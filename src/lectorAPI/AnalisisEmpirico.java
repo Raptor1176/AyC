@@ -13,7 +13,7 @@ import grafos.Grafo;
 		public static void main(String[] args) throws IOException {
 			
 			try{
-				Grafo grafo = getGrafo(500,2000);
+				Grafo grafo = getGrafo(10,9);
 				grafo.print();
 				grafo.BFS();
 				//System.out.println("Grafo conexo con "+ grafo.getNodosCount() + " nodos y "+ grafo.getArcosCount() + " arcos construido");
