@@ -23,33 +23,22 @@ public class ConexionWebService{
 		}		
 	}
 	
-	private static Grafo getGrafo(int nodos, int arcos) throws Exception {
-		// TODO Auto-generated method stub
-		
-		//Esta parte esta sacada de: https://docs.oracle.com/javase/tutorial/networking/urls/readingWriting.html
+	private static Grafo getGrafo(int nodos, int arcos) throws Exception {		
+		/* Esta parte esta sacada de: 
+		 * https://docs.oracle.com/javase/tutorial/networking/urls/readingWriting.html
+		 */
 		String url = "http://cs.uns.edu.ar/~mom/AyC2019/grafo.php?nodos="+nodos+"&arcos="+arcos;
 		URL oracle = new URL(url);
 		
 		URLConnection yc = oracle.openConnection();
-        BufferedReader in = new BufferedReader(new InputStreamReader(
-                                    yc.getInputStream()));
-        String inputLine;
-        while ((inputLine = in.readLine()) != null) 
-            System.out.println(inputLine);
-        in.close();        
-        /*********** HASTA ACA *************/
+        BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
+        System.out.println(in.readLine());
+        in.close();  
         
-        // pruebo si existe curl?????
-        boolean exists = new File("C:/curl/curl.exe").exists(); 
-        System.out.println(exists);
+        /** Hasta aca ***/
         
-        // esto ami no me funciona..........
-        /***** ESTO ES LO QUE HIZO MARTIN****/
-        String curl="curl "+url;	
-        System.out.println(curl);
-		Process process = Runtime.getRuntime().exec(curl);			
-		InputStream inputSt = process.getInputStream();
-		@SuppressWarnings("resource")
+		InputStream inputSt = yc.getInputStream();
+		@SuppressWarnings("resource")		
 		Scanner s = new Scanner(inputSt).useDelimiter("\\A");
 		
 		String jsonString = s.hasNext() ? s.next() : "";
