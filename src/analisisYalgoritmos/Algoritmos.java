@@ -1,12 +1,14 @@
 package analisisYalgoritmos;
 
 import java.awt.Color;
+import conjuntosDisjuntos.IConjuntosDisjuntos;
 import conjuntosDisjuntos.ConjuntosDisjuntos;
 import conjuntosDisjuntos.ElementoConjunto;
 import grafos.Grafo;
 import grafos.IArco;
 import grafos.INodo;
 import grafos.Nodo;
+import heap.IHeap;
 import heap.Heap;
 import listas.Cola;
 import listas.Lista;
@@ -118,6 +120,29 @@ public class Algoritmos {
 		}
 	}
 	
+	/**
+	 * Ordeno la lista de arcos con un heap
+	 * @return Un arreglo de arcos ordenados por menor peso
+	 */
+	public IArco[] HeapSort() {
+		IHeap heap=new Heap(listaArcos.size());
+		IArco[] arreglo=new IArco[listaArcos.size()];
+		// Inserto todos en un heap
+		while(listaArcos.hasNext()) {
+			heap.insert(listaArcos.next());
+		}
+		int i=0;
+		// Mientras el heap no este vacio
+		while(!heap.isEmpty()) {
+			// Elimino arco minimo y lo guardo en el arreglo
+			arreglo[i]=heap.removeMin();
+			i++;
+		}
+		return arreglo;
+	}
+	
+	
+	
 	public void Kruskal() {
 		this.listaArcos = new Lista<IArco>();
 		int cantidadNodos = this.grafo.getNodos().length;
@@ -152,3 +177,4 @@ public class Algoritmos {
 		}
 	}
 }
+

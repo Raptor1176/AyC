@@ -11,6 +11,11 @@ public interface IHeap {
 	public int size();
 	
 	/**
+	 * @return True si el heap esta vacio, False en caso contrario.
+	 */
+	public boolean isEmpty();
+	
+	/**
 	 * Retorna el elemento menor del heap
 	 * @return IArco el arco del heap con menor peso  
 	 */
