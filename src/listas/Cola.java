@@ -13,6 +13,9 @@ public class Cola<E> extends Lista<E>{
 	}
 	
 	public E deleteFirst(){
+		if(p==u){
+			u=null;
+		}
 		E elm= p.e;
 		p=p.sig;
 		t--;
