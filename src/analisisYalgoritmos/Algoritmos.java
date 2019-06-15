@@ -1,8 +1,8 @@
 package analisisYalgoritmos;
 import java.awt.Color;
 
-import conjuntosDisjuntos.ConjuntoDisjunto;
-import conjuntosDisjuntos.Elemento;
+import conjuntosDisjuntos.ConjuntosDisjuntos;
+import conjuntosDisjuntos.ElementoConjunto;
 import grafos.Grafo;
 import grafos.IArco;
 import grafos.INodo;
@@ -14,9 +14,9 @@ import listas.Lista;
 public class Algoritmos {
 
 	private Grafo grafo;
-	private ConjuntoDisjunto conjuntoDisjunto;
+	private ConjuntosDisjuntos conjuntoDisjunto;
 	private Lista<IArco> listaArcos;
-	private Heap<IArco> heapArcos;
+	private Heap heapArcos;
 	private Lista<IArco> arbolCubrimiento;
 	private int[] padre; // Arreglo de padres de cada nodo utilizado para el recorrido BFS.
 	private int[] nivel; // Arreglo de niveles de cada nodo utilizado para el recorrido BFS.
@@ -136,7 +136,7 @@ public class Algoritmos {
 		}
 		//ORDENAR LISTA DE ARCOS O CREAR HEAP DE ARCOS
 		this.arbolCubrimiento = new Lista<IArco>();
-		this.conjuntoDisjunto = new ConjuntoDisjunto(cantidadNodos, true);
+		this.conjuntoDisjunto = new ConjuntosDisjuntos(cantidadNodos, true);
 		int count = 0;
 		this.listaArcos.start();
 		while(count < cantidadNodos && this.listaArcos.hasNext()) {
