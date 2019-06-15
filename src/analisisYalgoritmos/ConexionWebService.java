@@ -31,21 +31,15 @@ public class ConexionWebService{
 		if (conexo) {
 			url+= "&conexo=1";
 		}
-		URL oracle = new URL(url);
-		
+		URL oracle = new URL(url);		
 		URLConnection yc = oracle.openConnection();
         BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
-        System.out.println(in.readLine());
-        in.close();  
         
-        /** Hasta aca ***/
-        
-		InputStream inputSt = yc.getInputStream();
-		@SuppressWarnings("resource")		
-		Scanner s = new Scanner(inputSt).useDelimiter("\\A");
+		String jsonString=in.readLine(); //Leo la primer linea, que es el json del grafo obtenido
 		
-		String jsonString = s.hasNext() ? s.next() : "";
-		jsonString= "{\"nodos\": [0, 1, 2, 3, 4, 5], \"arcos\": [[[1, 0], 46], [[0, 4], 790], [[4, 2], 440], [[1, 5], 276], [[3, 0], 700], [[3, 5], 820], [[0, 2], 996]]}";
+		in.close();
+				
+		//jsonString= "{\"nodos\": [0, 1, 2, 3, 4, 5], \"arcos\": [[[1, 0], 46], [[0, 4], 790], [[4, 2], 440], [[1, 5], 276], [[3, 0], 700], [[3, 5], 820], [[0, 2], 996]]}";
 		System.out.println("Tengo el grafo en formato JSON. Lo convierto...");
 		Gson gson = new GsonBuilder().create();
 		try{
