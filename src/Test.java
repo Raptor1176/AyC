@@ -87,10 +87,21 @@ public class Test {
 			h.insert(el);
 		}
 		
+		System.out.println("\n******* Heap antes de eliminar **********");
 		System.out.println("Heap:\n"+h.toString());
 		System.out.println("Heap size:"+h.size());
 		System.out.println("Heap min:"+h.min().getElemento());
 		
+		
+		System.out.println("\n******* Heap despues de eliminar mins **********");
+		System.out.println("Heap removemin:"+h.removeMin());
+		System.out.println("Heap removemin:"+h.removeMin());
+		System.out.println("Heap removemin:"+h.removeMin());
+		System.out.println("Heap removemin:"+h.removeMin());
+		System.out.println("Heap removemin:"+h.removeMin());
+		System.out.println("Heap:\n"+h.toString());
+		System.out.println("Heap size:"+h.size());
+		System.out.println("Heap min:"+h.min().getElemento());
 		
 	}
 
