@@ -1,40 +1,38 @@
 package heap;
 
-import conjuntosDisjuntos.Elemento;
+public class Heap implements IHeap{
 
-public class Heap<E> {
+    private ElemTest[] heap;
+    private int tamanio;
+    private int capacidad;
 
-    private Elemento<E>[] heap;
-    private int size;
-    private int capacity;
-
-    @SuppressWarnings("unchecked")
 	public Heap(int cap) {
-    	this.heap = new Elemento[cap+1];
-    	this.size = 0;
-        this.capacity = cap;
+    	this.heap = new ElemTest[cap+1];
+    	this.tamanio = 0;
+        this.capacidad = cap;
     }
 
-    //
-    // returns the number of elements in the heap
-    //
+	/**
+	 * @return La cantidad de elementos del heap
+	 */
     public int size() {
-        return this.size;
+        return this.tamanio;
     }
 
 
-    //
-    // is the heap empty?
-    //
+    /**
+     * @return True si el heap esta vacio. False en caso contrario
+     */
     public boolean isEmpty() {
-        return (this.size == 0);
+        return (this.tamanio == 0);
     }
 
-
-    //
-    // returns element with smallest key, without removal
-    //
-    public Elemento<E> min(){
+    /**
+     * Retorna el arco de peso minimo del heap
+     * @see heap.IHeap#min()
+     * @return El arco de menor peso
+     */
+    public ElemTest min(){
         if (isEmpty())
             return null;
         else
@@ -42,119 +40,130 @@ public class Heap<E> {
     }
 
 
-
-    private int compare(Elemento<E> x, Elemento<E> y) {
-        return (x.getID() - y.getID());
+    /**
+     * Compara los pesos de los arcos, y retorna un entero que es la 
+     * diferencia entre los pesos
+     * Si >0, el arco y es el menor
+     * Si <0, el arco x es el menor
+     * Si =0, los arcos tienen el mismo peso
+     * @param ElemTest x, ElemTest y: Los arcos a comparar 
+     * @return Un entero que es la diferencia entre los pesos de los arcos
+     */
+    private int comparar(ElemTest x, ElemTest y) {
+        return (x.getPeso() - y.getPeso());
     }
 
     
-    //
-    // inserts e into the heap
-    //
-    public boolean insert(Elemento<E> e) {
-        if (this.size == this.capacity)
+    /**
+     * Inserta el arco a en el heap
+     * @see heap.IHeap#insert(grafos.ElemTest)
+     * @param ElemTest a: el arco a insertar
+     * @return True si se pudo insertar en el heap, False en caso contrario
+     */
+    public boolean insert(ElemTest a) {
+        if (this.tamanio == this.capacidad)
             return false;
         else{
-            size++;
-            heap[size] = e;
-            upHeapBubble();
+            tamanio++;
+            heap[tamanio] = a;
+            burbujaHaciaArriba();
             return true;
         }       
     }
 
 
-    //
-    // removes and returns smallest element of the heap
-    //
-    public E removeMin() {
+    /**
+     * Elimina el arco minimo y lo retorna
+     * @see heap.IHeap#removeMin()
+     * @return El arco de menor peso del heap
+     */
+    public ElemTest removeMin() {
         if (isEmpty())
             return null;
         else {
-            Elemento<E> min = min();
-            heap[1] = heap[size];
-            size--;
-            downHeapBubble();
-            return min.getElemento();
+            ElemTest min = min();
+            heap[1] = heap[tamanio];
+            tamanio--;
+            burbujaHaciaAbajo();
+            return min;
+        }
+    }
+    
+    /**
+     * Este metodo se ejecuta luego de hacer un removeMin() y se encarga de mantener la propiedad de heap
+     * Recorre al heap desde el inicio y realizando swaps hacia abajo
+     */
+    private void burbujaHaciaAbajo(){
+    	int i=1; //Comienzo desde la raiz
+    	int hijo=i*2;
+        while ( (hijo<=tamanio) && (comparar(heap[i],heap[hijo])>=0) ){
+        	// Mientras no llegue al final del arreglo y 
+        	// el padre sea menor o igual al hijo    
+        	
+            if ((hijo+1)<=this.tamanio){
+                // Si i tiene dos hijos, tomo el menor
+            	// si son iguales tomo el izquierdo
+            	hijo = hijoMenor(hijo, hijo+1);
+            }            
+            swap(i,hijo); //Hago swap de padre e hijo menor
+            i = hijo;
+            hijo = i*2;
         }
     }
 
 
-
     /**
-     * downHeapBubble() method is used after the removeMin() method to reorder the elements
-     * in order to preserve the Heap properties
+     * Este metodo se ejecuta luego de insert() y se encarga de mantener la propiedad de heap
+     * Recorre al heap desde el final y va realizando swaps hacia arriba
      */
-    private void downHeapBubble(){
-        int index = 1;
-        while (true){
-            int child = index*2;
-            if (child > size())
-                break;
-            if (child + 1 <= size()){
-                //if there are two children -> take the smalles or
-                //if they are equal take the left one
-                child = findMin(child, child + 1);
-            }
-            if (compare(heap[index],heap[child]) <= 0 )
-                break;
-            swap(index,child);
-            index = child;
-        }
-    }
-
-    /**
-     * upHeapBubble() method is used after the insert(E e) method to reorder the elements
-     * in order to preserve the Heap properties 
-     */
-    private void upHeapBubble(){
-        int index = size();
-        while (index > 1){
-            int parent = index / 2;
-            if (compare(heap[index], heap[parent]) >= 0)
-                //break if the parent is greater or equal to the current element
-                break;
-            swap(index,parent);
-            index = parent;
+    private void burbujaHaciaArriba(){
+        int i=this.tamanio;
+        int padre=i/2;
+        while ((i > 1)&&(comparar(heap[i], heap[padre])<=0)){
+        	// Mientras no llegue al inicio del heap y
+        	// mientras el padre sea mayor al hijo
+        	
+            swap(i,padre); // hago swap
+            i=padre;
+            padre=i/2;
         }       
     }
 
+
     /**
-     * Swaps two integers i and j
-     * @param i
-     * @param j
+     * Metodo auxiliar que hace swap de dos elementos del arreglo heap[]
      */
     private void swap(int i, int j) {
-        Elemento<E> aux = heap[i];
+        ElemTest aux = heap[i];
         heap[i] = heap[j];
         heap[j] = aux;
     }
 
     /**
-     * the method is used in the downHeapBubble() method
-     * @param leftChild
-     * @param rightChild
-     * @return min of left and right child, if they are equal return the left
+     * Metodo auxiliar que es usado por burbujaHaciaAbajo()
+     * @param hizq: indice del hijo izquierdo en el arreglo heap[]
+     * @param hder: indice del hijo derecho en el arreglo heap[]
+     * @return el indice del hijo menor, si son iguales retorna el izquierdo     *
      */
-    private int findMin(int leftChild, int rightChild) {
-        if (compare(heap[leftChild], heap[rightChild]) <= 0)
-            return leftChild;
+    private int hijoMenor(int hizq, int hder) {
+        if (comparar(heap[hizq], heap[hder]) <= 0)
+            return hizq;
         else
-            return rightChild;
+            return hder;
     }
     
-    //
-    // outputs the entries in heap in the order heap[1] to heap[last]
-    // in same style as used in ArrayQueue
-    //
+    /**
+     * Retorna una string representando al arreglo heap
+     * @return String: cadena que representa el estado del arreglo heap
+     */
     public String toString() {
         String s = "[";
         for (int i = 1; i <= size(); i++) {
-            s += heap[i].getID();
-            if (i != size)
+            s += heap[i].getPeso();
+            if (i != tamanio)
                 s += ",";
         }
         return s + "]";
     }
-
 
 }

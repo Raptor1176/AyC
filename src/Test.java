@@ -1,13 +1,11 @@
 import java.util.Random;
 
-import conjuntosDisjuntos.ConjuntoDisjunto;
-import conjuntosDisjuntos.Elemento;
+import heap.ElemTest;
 import heap.Heap;
+import conjuntosDisjuntos.ConjuntosDisjuntos;
+import conjuntosDisjuntos.ElementoConjunto;
+
 import listas.Cola;
-import listas.ILista;
-import listas.Lista;
-import conjuntosDisjuntos.ConjuntoDisjunto;
-import conjuntosDisjuntos.Elemento;
 import listas.ILista;
 import listas.Lista;
 
@@ -36,12 +34,14 @@ public class Test {
 		 * TEST CONJUNTOS DISJUNTOS
 		 */
 		
-		int cant = 10;
-		int uniones= 20;
+		int cant = 24;
+		int uniones= 82;
 		
 		ElemTest e;		
-		ConjuntoDisjunto<Integer> conj=new ConjuntoDisjunto<Integer>(cant,true);
+		ConjuntosDisjuntos conj=new ConjuntosDisjuntos(cant,true);
 		
+		System.out.println("*********** Creo un ConjuntosDisjuntos de "+cant+" elementos ***********\n");
+		System.out.println("Hago "+cant+" makeSet() de elementos con id desde 0 hasta "+(cant-1)+" ***********\n");
 		// Hago CANT de make set
 		for (int i=0; i<cant;i++) {
 			e=new ElemTest(i);
@@ -49,12 +49,12 @@ public class Test {
 		}
 		
 		
-		Elemento<Integer>[] elems=conj.getElementos();
+		ElementoConjunto[] elems=conj.getElementos();
 		
 		// Imprimo estado inicial
 		System.out.println("*********** Estado inicial ***********\n");
-		for(Elemento<Integer> el: elems) {
-			System.out.println("E: "+el.getID()+" Padre: "+conj.getPadre(el.getID())+" Rango: "+conj.getRango(el.getID()));
+		for(ElementoConjunto el: elems) {
+			System.out.println("E: "+el.getID()+" Padre: "+conj.getPadres(el.getID())+" Rango: "+conj.getRangos(el.getID()));
 		}		
 		
 		// Hago UNIONES de uniones random 
@@ -67,8 +67,8 @@ public class Test {
 		
 		// Imprimo el estado final
 		System.out.println("\n*********** Estado luego de "+uniones+" uniones ***********\n");		
-		for(Elemento<Integer> el: elems) {
-			System.out.println("E: "+el.getID()+" Padre: "+conj.getPadre(el.getID())+" Rango: "+conj.getRango(el.getID()));
+		for(ElementoConjunto el: elems) {
+			System.out.println("E: "+el.getID()+" Padre: "+conj.getPadres(el.getID())+" Rango: "+conj.getRangos(el.getID()));
 		}
 		
 		
@@ -77,31 +77,35 @@ public class Test {
 		System.out.println(conj.toString());
 		
 		
-		int cantHeap= 15;
+		int cantHeap= 24;
+		int maxRandom= 500;
 		
-		Heap<Integer> h=new Heap<Integer>(cantHeap);
+		Heap h=new Heap(cantHeap);
 		ElemTest el;
-		
+		System.out.println("\n\n\n******** Creo heap de max "+cantHeap+" elementos *******");
+		System.out.println("Inserto "+(cantHeap-1)+" elementos randoms de 0 a "+maxRandom);
 		for(int i=0;i<cantHeap;i++) {			
-			el=new ElemTest(ran.nextInt(50));
+			el=new ElemTest(ran.nextInt(maxRandom));
 			h.insert(el);
 		}
 		
 		System.out.println("\n******* Heap antes de eliminar **********");
-		System.out.println("Heap:\n"+h.toString());
-		System.out.println("Heap size:"+h.size());
-		System.out.println("Heap min:"+h.min().getElemento());
+		System.out.println("\nHeap:\n"+h.toString());
+		System.out.println("Heap size: "+h.size());
+		System.out.println("Heap min => "+h.min().getID());
 		
 		
-		System.out.println("\n******* Heap despues de eliminar mins **********");
-		System.out.println("Heap removemin:"+h.removeMin());
-		System.out.println("Heap removemin:"+h.removeMin());
-		System.out.println("Heap removemin:"+h.removeMin());
-		System.out.println("Heap removemin:"+h.removeMin());
-		System.out.println("Heap removemin:"+h.removeMin());
-		System.out.println("Heap:\n"+h.toString());
-		System.out.println("Heap size:"+h.size());
-		System.out.println("Heap min:"+h.min().getElemento());
+		int cantRemoves=6;
+		System.out.println("\n******* Hago "+cantRemoves+" removeMin() **********");
+		for (int i=1;i<=cantRemoves;i++) {
+			System.out.println("Heap removemin => "+h.removeMin().getID());
+			//System.out.println("Heap => "+h.toString());
+		}
+		System.out.println("\n******* Heap despues de hacer "+cantRemoves+" removeMin() **********");
+		
+		System.out.println("\nHeap:\n"+h.toString());
+		System.out.println("\nHeap size: "+h.size());
+		System.out.println("Heap min  => "+h.min().getID());
 		
 	}
 
