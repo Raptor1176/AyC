@@ -1,6 +1,5 @@
 package analisisYalgoritmos;
 import java.net.*;
-import java.util.Scanner;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -13,10 +12,14 @@ public class ConexionWebService{
 	
 	public static void main(String[] args) throws IOException {		
 		try{
-			Grafo grafo = getGrafo(10,20,false);
+			Grafo grafo = getGrafo(500,621,false);
 			Algoritmos algoritmos = new Algoritmos(grafo);
-			grafo.print();
-			algoritmos.BFS(true);			
+			//grafo.print();
+			System.out.println("Comienzo recorrido BFS");			
+			long t1=System.currentTimeMillis();
+			algoritmos.BFS(true);
+			long t2=System.currentTimeMillis();
+			System.out.println("Tiempo BFS: "+(t2-t1)+" ms");
 			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
