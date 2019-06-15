@@ -1,9 +1,11 @@
 package grafos;
 
 import java.awt.Color;
-
 import listas.Lista;
 
+/**
+ * Interfaz de la clase Nodo.
+ */
 public interface INodo {
 
 	public Color getMarca();

@@ -2,17 +2,16 @@ package grafos;
 
 public class Arco implements IArco {
 
-	private Nodo NodoIzquierdo;
-	private Nodo NodoDerecho;
-	private int Peso;
-	private int Marca;
+	private Nodo NodoIzquierdo; // Nodo del extremo izquierdo del arco.
+	private Nodo NodoDerecho; // Nodo del extremo derecho del arco.
+	private int Peso; // Peso del arco.
+	private int Marca; // Marca del arco.
 	
 	/**
-	 * @param iD
-	 * @param nodoDerecho
-	 * @param nodoIzquierdo
-	 * @param peso
-	 * @param marca
+	 * Constructor de la clase Arco.
+	 * @param nodoDerecho Nodo del extremo izquierdo del arco.
+	 * @param nodoIzquierdo Nodo del extremo derecho del arco.
+	 * @param peso Peso del arco.
 	 */
 	public Arco(Nodo nodoIzquierdo, Nodo nodoDerecho, int peso) {
 		NodoDerecho = nodoDerecho;
@@ -22,65 +21,73 @@ public class Arco implements IArco {
 	}
 	
 	/**
-	 * @return the nodoDerecho
+	 * Metodo para obtener el nodo del extremo derecho del arco.
+	 * @return Nodo del extremo derecho del arco.
 	 */
 	public Nodo getNodoDerecho() {
 		return NodoDerecho;
 	}
 	
 	/**
-	 * @param nodoDerecho the nodoDerecho to set
+	 * Metodo para setear el nodo del extremo derecho del arco.
+	 * @param nodoDerecho Nodo a setear como extremo derecho del arco.
 	 */
 	public void setNodoDerecho(Nodo nodoDerecho) {
 		NodoDerecho = nodoDerecho;
 	}
 	
 	/**
-	 * @return the nodoIzquierdo
+	 * Metodo para obtener el nodo del extremo izquierdo del arco.
+	 * @return Nodo del extremo izquierdo del arco.
 	 */
 	public Nodo getNodoIzquierdo() {
 		return NodoIzquierdo;
 	}
 	
 	/**
-	 * @param nodoIzquierdo the nodoIzquierdo to set
+	 * Metodo para setear el nodo del extremo izquierdo del arco.
+	 * @param nodoIzquierdo Nodo a setear como extremo izquierdo del arco.
 	 */
 	public void setNodoIzquierdo(Nodo nodoIzquierdo) {
 		NodoIzquierdo = nodoIzquierdo;
 	}
 	
 	/**
-	 * @return the peso
+	 * Metodo para obtener el peso del arco.
+	 * @return Peso del arco.
 	 */
 	public int getPeso() {
 		return Peso;
 	}
 	
 	/**
-	 * @param peso the peso to set
+	 * Metodo para setear el peso del arco.
+	 * @param peso Peso del arco a setear.
 	 */
 	public void setPeso(int peso) {
 		Peso = peso;
 	}
 	
 	/**
-	 * @return the marca
+	 * Metodo para obtener la marca del arco.
+	 * @return Marca del arco.
 	 */
 	public int getMarca() {
 		return Marca;
 	}
 	
 	/**
-	 * @param marca the marca to set
+	 * Metodo para marcar el arco.
+	 * @param Marca del arco.
 	 */
 	public void setMarca(int marca) {
 		Marca = marca;
 	}
 	
 	/**
-	 * 
-	 * @param arc
-	 * @return
+	 * Metodo para comparar el arco con un arco pasado como parametro.
+	 * @param Arco para comparar con este.
+	 * @return TRUE si el id de ambos extremos son iguales y el peso de ambos es igual, FALSE en caso contrario.
 	 */
 	public boolean equals(IArco arc) {
 		boolean ni = this.NodoIzquierdo.getID() == arc.getNodoIzquierdo().getID();
@@ -89,7 +96,10 @@ public class Arco implements IArco {
 		return ni & nd & ps;
 	}
 	
+	/*
+	 * Metodo para imprimir el arco por consola.
+	 */
 	public String toString(){
-		return "["+NodoIzquierdo.getID()+"-"+NodoDerecho.getID()+"-"+this.Peso+"]";
+		return "(" + NodoIzquierdo.getID() + ")--" +this.Peso+  "--("  + NodoDerecho.getID() + ") ";
 	}
 }

@@ -1,5 +1,8 @@
 package grafos;
 
+/**
+ * Interfaz de la clase Arco.
+ */
 public interface IArco {
 
 	public Nodo getNodoDerecho();

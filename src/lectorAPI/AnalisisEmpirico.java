@@ -13,11 +13,9 @@ import grafos.Grafo;
 		public static void main(String[] args) throws IOException {
 			
 			try{
-				Grafo grafo = getGrafo(10,9);
+				Grafo grafo = getGrafo(10,20);
 				grafo.print();
-				grafo.BFS();
-				//System.out.println("Grafo conexo con "+ grafo.getNodosCount() + " nodos y "+ grafo.getArcosCount() + " arcos construido");
-				//System.out.println(grafo.toString());
+				grafo.BFS(true);
 				
 				
 			} catch (Exception e) {
