@@ -1,7 +1,7 @@
 package analisisYalgoritmos;
 import java.awt.Color;
 
-import conjuntosDisjuntos.ConjuntoDisjunto;
+import conjuntosDisjuntos.ConjuntosDisjuntos;
 import grafos.Grafo;
 import grafos.IArco;
 import grafos.INodo;
@@ -12,7 +12,7 @@ import listas.Lista;
 public class Algoritmos {
 
 	private Grafo grafo;
-	private ConjuntoDisjunto conjuntoDisjunto;
+	private ConjuntosDisjuntos conjuntoDisjunto;
 	private int[] padre; // Arreglo de padres de cada nodo utilizado para el recorrido BFS.
 	private int[] nivel; // Arreglo de niveles de cada nodo utilizado para el recorrido BFS.
 	
