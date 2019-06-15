@@ -2,10 +2,12 @@ package analisisYalgoritmos;
 import java.awt.Color;
 
 import conjuntosDisjuntos.ConjuntosDisjuntos;
+import conjuntosDisjuntos.ElementoConjunto;
 import grafos.Grafo;
 import grafos.IArco;
 import grafos.INodo;
 import grafos.Nodo;
+import heap.Heap;
 import listas.Cola;
 import listas.Lista;
 
@@ -13,6 +15,9 @@ public class Algoritmos {
 
 	private Grafo grafo;
 	private ConjuntosDisjuntos conjuntoDisjunto;
+	private Lista<IArco> listaArcos;
+	private Heap heapArcos;
+	private Lista<IArco> arbolCubrimiento;
 	private int[] padre; // Arreglo de padres de cada nodo utilizado para el recorrido BFS.
 	private int[] nivel; // Arreglo de niveles de cada nodo utilizado para el recorrido BFS.
 	
@@ -109,6 +114,40 @@ public class Algoritmos {
 			u.setMarca(Color.BLACK);
 			// Y lo sacamos de la cola.
 			Q.deleteFirst();
+		}
+	}
+	
+	public void Kruskal() {
+		this.listaArcos = new Lista<IArco>();
+		int cantidadNodos = this.grafo.getNodos().length;
+		for(Nodo n: this.grafo.getNodos()){
+			n.getArcos().start();
+			while(n.getArcos().hasNext()) {
+				IArco arc = n.getArcos().next();
+				if(arc.getMarca() == 0)
+				{
+					this.listaArcos.add(arc);
+					arc.setMarca(1);
+				}
+				else {
+					arc.setMarca(0);
+				}
+			}
+		}
+		//ORDENAR LISTA DE ARCOS O CREAR HEAP DE ARCOS
+		this.arbolCubrimiento = new Lista<IArco>();
+		this.conjuntoDisjunto = new ConjuntosDisjuntos(cantidadNodos, true);
+		int count = 0;
+		this.listaArcos.start();
+		while(count < cantidadNodos && this.listaArcos.hasNext()) {
+			IArco arc = this.listaArcos.next();
+			Elemento<E> conjNodoIzq = this.conjuntoDisjunto.findSet(arc.getNodoIzquierdo());
+			Elemento conjNodoDer = this.conjuntoDisjunto.findSet(arc.getNodoDerecho());
+			if(!conjNodoIzq.equals(conjNodoDer)) {
+				this.conjuntoDisjunto.union(conjNodoIzq, conjNodoDer);
+				this.arbolCubrimiento.add(arc);
+				count++;
+			}
 		}
 	}
 }
