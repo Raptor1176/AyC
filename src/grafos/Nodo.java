@@ -1,9 +1,10 @@
 package grafos;
 
 import java.awt.Color;
+import conjuntosDisjuntos.ElementoConjunto;
 import listas.Lista;
 
-public class Nodo implements INodo {
+public class Nodo implements INodo, ElementoConjunto {
 	
 	private int ID; // Identiicador del nodo.
 	private Lista<IArco> Arcos; // Lista de arcos que tocan al nodo.

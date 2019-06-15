@@ -6,16 +6,16 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import grafos.Grafo;
 
-
 public class AnalisisEmpirico{
 	
 	public static void main(String[] args) throws IOException {
 		
 		try{
-			Grafo grafo = getGrafo(10,20);
+			Grafo grafo = getGrafo(10,40);
 			Algoritmos algoritmos = new Algoritmos(grafo);
 			grafo.print();
-			algoritmos.BFS(true);
+			//algoritmos.BFS(true);
+			algoritmos.Kruskal(true);
 			
 			
 		} catch (Exception e) {
