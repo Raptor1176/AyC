@@ -1,5 +1,7 @@
 package heap;
 
+import grafos.IArco;
+
 public interface IHeap {
 	
 	/**
@@ -10,20 +12,20 @@ public interface IHeap {
 	
 	/**
 	 * Retorna el elemento menor del heap
-	 * @return ElemTest el arco del heap con menor peso  
+	 * @return IArco el arco del heap con menor peso  
 	 */
-	public ElemTest min();
+	public IArco min();
 	
 	/**
 	 * Elimina el elemento minimo del heap y lo retorna
-	 * @return ElemTest el arco del heap con menor peso
+	 * @return IArco el arco del heap con menor peso
 	 */
-	public ElemTest removeMin();
+	public IArco removeMin();
 	
 	/**
 	 * Inserta el elemento a en el heap
-	 * @param ElemTest a: El arco a insertar en el heap
+	 * @param IArco a: El arco a insertar en el heap
 	 */
-	public boolean insert(ElemTest a);
+	public boolean insert(IArco a);
 
 }

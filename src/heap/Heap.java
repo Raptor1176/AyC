@@ -1,13 +1,15 @@
 package heap;
 
+import grafos.IArco;
+
 public class Heap implements IHeap{
 
-    private ElemTest[] heap;
+    private IArco[] heap;
     private int tamanio;
     private int capacidad;
 
 	public Heap(int cap) {
-    	this.heap = new ElemTest[cap+1];
+    	this.heap = new IArco[cap+1];
     	this.tamanio = 0;
         this.capacidad = cap;
     }
@@ -32,7 +34,7 @@ public class Heap implements IHeap{
      * @see heap.IHeap#min()
      * @return El arco de menor peso
      */
-    public ElemTest min(){
+    public IArco min(){
         if (isEmpty())
             return null;
         else
@@ -46,21 +48,21 @@ public class Heap implements IHeap{
      * Si >0, el arco y es el menor
      * Si <0, el arco x es el menor
      * Si =0, los arcos tienen el mismo peso
-     * @param ElemTest x, ElemTest y: Los arcos a comparar 
+     * @param IArco x, IArco y: Los arcos a comparar 
      * @return Un entero que es la diferencia entre los pesos de los arcos
      */
-    private int comparar(ElemTest x, ElemTest y) {
+    private int comparar(IArco x, IArco y) {
         return (x.getPeso() - y.getPeso());
     }
 
     
     /**
      * Inserta el arco a en el heap
-     * @see heap.IHeap#insert(grafos.ElemTest)
-     * @param ElemTest a: el arco a insertar
+     * @see heap.IHeap#insert(grafos.IArco)
+     * @param IArco a: el arco a insertar
      * @return True si se pudo insertar en el heap, False en caso contrario
      */
-    public boolean insert(ElemTest a) {
+    public boolean insert(IArco a) {
         if (this.tamanio == this.capacidad)
             return false;
         else{
@@ -77,11 +79,11 @@ public class Heap implements IHeap{
      * @see heap.IHeap#removeMin()
      * @return El arco de menor peso del heap
      */
-    public ElemTest removeMin() {
+    public IArco removeMin() {
         if (isEmpty())
             return null;
         else {
-            ElemTest min = min();
+            IArco min = min();
             heap[1] = heap[tamanio];
             tamanio--;
             burbujaHaciaAbajo();
@@ -134,7 +136,7 @@ public class Heap implements IHeap{
      * Metodo auxiliar que hace swap de dos elementos del arreglo heap[]
      */
     private void swap(int i, int j) {
-        ElemTest aux = heap[i];
+        IArco aux = heap[i];
         heap[i] = heap[j];
         heap[j] = aux;
     }
