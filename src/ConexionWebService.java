@@ -23,11 +23,14 @@ public class ConexionWebService{
 		}		
 	}
 	
-	private static Grafo getGrafo(int nodos, int arcos) throws Exception {		
+	private static Grafo getGrafo(int nodos, int arcos, boolean conexo) throws Exception {		
 		/* Esta parte esta sacada de: 
 		 * https://docs.oracle.com/javase/tutorial/networking/urls/readingWriting.html
 		 */
 		String url = "http://cs.uns.edu.ar/~mom/AyC2019/grafo.php?nodos="+nodos+"&arcos="+arcos;
+		if (conexo) {
+			url+= "&conexo=1";
+		}
 		URL oracle = new URL(url);
 		
 		URLConnection yc = oracle.openConnection();
