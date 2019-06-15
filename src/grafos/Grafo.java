@@ -1,10 +1,16 @@
 package grafos;
 
+import java.awt.Color;
 import java.util.ArrayList;
+
+import listas.Cola;
+import listas.Lista;
 
 public class Grafo implements IGrafo {
 	
 	private Nodo[] nodos;
+	private int[] padre;
+	private int[] nivel;
 
 	@SuppressWarnings("rawtypes")
 	public Grafo(GrafoObj grafoJson){
@@ -31,10 +37,67 @@ public class Grafo implements IGrafo {
 
 			int peso = ((Double) arcosJson[i][1]).intValue();
 			// Creamos el arco pasando los nodos previamente creados y el peso.
-			Arco arc = new Arco(nodI, nodD, peso);
-			nodI.addArco(arc);			
-			nodD.addArco(arc);
+			Arco arc1 = new Arco(nodI, nodD, peso);
+			//Arco arc2 = new Arco(nodD, nodI, peso);
+			nodI.addArco(arc1);			
+			nodD.addArco(arc1);
 		}		
+	}
+	
+	public void BFS() {
+		this.padre = new int[this.nodos.length];
+		this.nivel = new int[this.nodos.length];
+		for(Nodo n: this.nodos) {
+			n.setMarca(Color.WHITE);
+		}
+		Cola<INodo> Q = new Cola<INodo>();
+		for(Nodo n: this.nodos) {
+			if(n.getMarca().equals(Color.WHITE)) {
+				n.setMarca(Color.GRAY);
+				Q.addLast(n);
+				this.visitarBF(Q);
+			}
+		}
+		System.out.print("Padre: ");
+		
+		for(int i: this.padre) {
+			System.out.print(i + " ");
+		}
+		System.out.println();
+		System.out.print("Nivel: ");
+		for(int i: this.nivel) {
+			System.out.print(i + " ");
+		}
+	}
+	
+		
+	public void visitarBF(Cola<INodo> Q) {
+		while(!Q.vacia()) {
+			INodo u = Q.tope();
+			Lista<IArco> arcList = u.getArcos();
+			arcList.start();
+			while(arcList.hasNext()) {
+				IArco arc = arcList.next();
+				//System.out.print("-"+arc.getPeso()+"-");
+				INodo w = arc.getNodoDerecho();
+				
+				if(u.getID() == w.getID()) {
+					w = arc.getNodoIzquierdo();
+				}
+				
+				if(w.getMarca().equals(Color.WHITE)) {
+					w.setMarca(Color.GRAY);
+					this.padre[w.getID()] = u.getID();
+					//System.out.println(w.getID());
+					this.nivel[w.getID()] = this.nivel[u.getID()] + 1;
+					Q.addLast(w);
+					//System.out.print("+" + w.getID()+"+");
+				}
+			}
+			u.setMarca(Color.BLACK);
+			Q.deleteFirst();
+			//System.out.print("-" +Q.deleteFirst().getID()+"-");
+		}
 	}
 	
 	public static class GrafoObj {

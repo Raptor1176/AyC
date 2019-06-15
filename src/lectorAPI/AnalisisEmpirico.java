@@ -13,8 +13,9 @@ import grafos.Grafo;
 		public static void main(String[] args) throws IOException {
 			
 			try{
-				Grafo grafo = getGrafo(5,4);
+				Grafo grafo = getGrafo(500,2000);
 				grafo.print();
+				grafo.BFS();
 				//System.out.println("Grafo conexo con "+ grafo.getNodosCount() + " nodos y "+ grafo.getArcosCount() + " arcos construido");
 				//System.out.println(grafo.toString());
 				
@@ -25,8 +26,8 @@ import grafos.Grafo;
 			
 			
 			/*
-			 * Generar varios grafos de diferente configuración y buscar 
-			 * árbol de cubrimiento minimal para cada uno. 
+			 * Generar varios grafos de diferente configuraciï¿½n y buscar 
+			 * ï¿½rbol de cubrimiento minimal para cada uno. 
 			 * 
 			 * Medir el rendimiento usando timestamps.
 			 * 
@@ -44,9 +45,11 @@ import grafos.Grafo;
 			Scanner s = new Scanner(inputSt).useDelimiter("\\A");
 			
 			String jsonString = s.hasNext() ? s.next() : "";
+			//String jsonString= "{\"nodos\": [0, 1, 2, 3, 4, 5], \"arcos\": [[[1, 0], 46], [[0, 4], 790], [[4, 2], 440], [[1, 5], 276], [[3, 0], 700], [[3, 5], 820], [[0, 2], 996]]}";
 			System.out.println("Tengo el grafo en formato JSON. Lo convierto...");
 			Gson gson = new GsonBuilder().create();
 			try{
+				
 				Grafo.GrafoObj gr = gson.fromJson(jsonString, Grafo.GrafoObj.class);
 				Grafo g= new Grafo(gr);
 				

@@ -1,12 +1,14 @@
 package grafos;
 
+import java.awt.Color;
+
 import listas.Lista;
 
 public class Nodo implements INodo {
 	
 	private int ID;
 	private Lista<IArco> Arcos;
-	private int Marca;
+	private Color Marca;
 	
 	/**
 	 * @param iD
@@ -16,20 +18,20 @@ public class Nodo implements INodo {
 	public Nodo(int id) {
 		ID = id;
 		Arcos = new Lista<IArco>();
-		Marca = 0;
+		Marca = null;
 	}
 	
 	/**
 	 * @return the marca
 	 */
-	public int getMarca() {
+	public Color getMarca() {
 		return Marca;
 	}
 	
 	/**
 	 * @param marca the marca to set
 	 */
-	public void setMarca(int marca) {
+	public void setMarca(Color marca) {
 		Marca = marca;
 	}
 	

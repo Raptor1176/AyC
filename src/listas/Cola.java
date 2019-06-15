@@ -27,6 +27,6 @@ public class Cola<E> extends Lista<E>{
 	}
 	
 	public boolean vacia(){
-		return (p==null);
+		return (u==null);
 	}
 }
