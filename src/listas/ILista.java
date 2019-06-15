@@ -1,5 +1,10 @@
 package listas;
 
+/**
+ * Interface de Lista
+ *
+ * @param <E> Tipo de dato contenido en la lista
+ */
 public interface ILista<E>{
 
 	
