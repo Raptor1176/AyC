@@ -1,6 +1,6 @@
 package analisisYalgoritmos;
-import java.awt.Color;
 
+import java.awt.Color;
 import conjuntosDisjuntos.ConjuntosDisjuntos;
 import conjuntosDisjuntos.ElementoConjunto;
 import grafos.Grafo;
@@ -33,6 +33,7 @@ public class Algoritmos {
 		// Creamos el arreglo nivel.
 		this.nivel = new int[this.grafo.getNodos().length];
 	}
+	
 	/**
 	 * Metodo que se encarga de realizar el recorrido BFS del grafo.
 	 * Al finalizar, en los atributos padre y nivel quedan los resultados del recorrido.
@@ -141,9 +142,9 @@ public class Algoritmos {
 		this.listaArcos.start();
 		while(count < cantidadNodos && this.listaArcos.hasNext()) {
 			IArco arc = this.listaArcos.next();
-			Elemento<E> conjNodoIzq = this.conjuntoDisjunto.findSet(arc.getNodoIzquierdo());
-			Elemento conjNodoDer = this.conjuntoDisjunto.findSet(arc.getNodoDerecho());
-			if(!conjNodoIzq.equals(conjNodoDer)) {
+			ElementoConjunto conjNodoIzq = this.conjuntoDisjunto.findSet((ElementoConjunto) arc.getNodoIzquierdo());
+			ElementoConjunto conjNodoDer = this.conjuntoDisjunto.findSet((ElementoConjunto) arc.getNodoDerecho());
+			if(conjNodoIzq.getID() != conjNodoDer.getID()) {
 				this.conjuntoDisjunto.union(conjNodoIzq, conjNodoDer);
 				this.arbolCubrimiento.add(arc);
 				count++;
