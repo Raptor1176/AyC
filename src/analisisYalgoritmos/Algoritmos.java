@@ -21,12 +21,16 @@ public class Algoritmos {
 	
 	private ConjuntosDisjuntos conjuntoDisjunto;
 	private Lista<IArco> listaArcos;
+	private IArco[] arcosOrdenados;
 	private Heap heapArcos;
 	private Lista<IArco> arbolCubrimiento;
 	private int cantidadNodos;
 	
 	public Algoritmos(Grafo graf) {
 		this.grafo = graf;
+	}
+	
+	public void iniciarBFS (boolean imprimirPadreyNivel) {
 		// Creamos el arreglo padres.
 		this.padre = new int[this.grafo.getNodos().length];
 		// Inicializamos los elementos del arreglo padre en -1 para identiicar las raices de la foresta del recorrido.
@@ -35,11 +39,13 @@ public class Algoritmos {
 		}
 		// Creamos el arreglo nivel.
 		this.nivel = new int[this.grafo.getNodos().length];
-		
-		
+		this.BFS(imprimirPadreyNivel);
+	}
+	
+	public void iniciarKruskalOrdenado (boolean conHeuristica, boolean imprimirArbolCubrimiento) {
 		this.listaArcos = new Lista<IArco>();
 		this.cantidadNodos = this.grafo.getNodos().length;
-		this.conjuntoDisjunto = new ConjuntosDisjuntos(cantidadNodos, false);
+		this.conjuntoDisjunto = new ConjuntosDisjuntos(cantidadNodos, conHeuristica);
 		for(Nodo n: this.grafo.getNodos()){
 			this.conjuntoDisjunto.makeSet(n);
 			n.getArcos().start();
@@ -56,6 +62,32 @@ public class Algoritmos {
 			}
 		}
 		this.arbolCubrimiento = new Lista<IArco>();
+		this.HeapSort();
+		this.KruskalOrdenado(imprimirArbolCubrimiento);
+	}
+	
+	public void iniciarKruskalHeap (boolean conHeuristica, boolean imprimirArbolCubrimiento) {
+		this.listaArcos = new Lista<IArco>();
+		this.cantidadNodos = this.grafo.getNodos().length;
+		this.conjuntoDisjunto = new ConjuntosDisjuntos(cantidadNodos, conHeuristica);
+		this.heapArcos = new Heap(this.grafo.getCantidadArcos());
+		for(Nodo n: this.grafo.getNodos()){
+			this.conjuntoDisjunto.makeSet(n);
+			n.getArcos().start();
+			while(n.getArcos().hasNext()) {
+				IArco arc = n.getArcos().next();
+				if(arc.getMarca() == 0)
+				{
+					this.heapArcos.insert(arc);
+					arc.setMarca(1);
+				}
+				else {
+					arc.setMarca(0);
+				}
+			}
+		}
+		this.arbolCubrimiento = new Lista<IArco>();
+		this.KruskalHeap(imprimirArbolCubrimiento);
 	}
 	
 	/**
@@ -63,7 +95,7 @@ public class Algoritmos {
 	 * Al finalizar, en los atributos padre y nivel quedan los resultados del recorrido.
 	 * @param imprimirPadreyNivel Booleano que determina si se imprimen los arreglos padre y nivel al finalizar el recorrido.
 	 */
-	public void BFS(boolean imprimirPadreyNivel) {
+	private void BFS(boolean imprimirPadreyNivel) {
 		// Marcamos los nodos del grafo como blancos.
 		for(Nodo n : this.grafo.getNodos()) {
 			n.setMarca(Color.WHITE);
@@ -102,7 +134,7 @@ public class Algoritmos {
 	 * Metodo auxiliar del recorrido BFS que se encarga de visitar los adyacentes de cada nodo.
 	 * @param Q Cola donde se almacenan los nodos a visitar.
 	 */
-	public void visitarBF(Cola<INodo> Q) {
+	private void visitarBF(Cola<INodo> Q) {
 		// Mientras la cola no este vacia...
 		while(!Q.vacia()) {
 			// Obtenemos el nodo del tope.
@@ -145,32 +177,30 @@ public class Algoritmos {
 	 * Ordeno la lista de arcos con un heap
 	 * @return Un arreglo de arcos ordenados por menor peso
 	 */
-	public IArco[] HeapSort() {
-		IHeap heap=new Heap(listaArcos.size());
-		IArco[] arreglo=new IArco[listaArcos.size()];
+	private void HeapSort() {
+		IHeap heap = new Heap(this.listaArcos.size());
+		this.arcosOrdenados = new IArco[this.listaArcos.size()];
 		// Inserto todos en un heap
 		this.listaArcos.start();
-		while(listaArcos.hasNext()) {
-			heap.insert(listaArcos.next());
+		while(this.listaArcos.hasNext()) {
+			heap.insert(this.listaArcos.next());
 		}
 		int i=0;
 		// Mientras el heap no este vacio
 		while(!heap.isEmpty()) {
 			// Elimino arco minimo y lo guardo en el arreglo
-			arreglo[i]=heap.removeMin();
+			this.arcosOrdenados[i] = heap.removeMin();
 			i++;
 		}
-		return arreglo;
 	}
 	
 	
 	
-	public void Kruskal(boolean imprimirArbolCubrimiento) {
-		IArco[] arcosOrdenados = this.HeapSort();
+	private void KruskalOrdenado(boolean imprimirArbolCubrimiento) {
 		int count = 0;
 		int i = 0;
-		while((count < (this.cantidadNodos - 1)) && (i < arcosOrdenados.length)) {
-			IArco arc = arcosOrdenados[i];
+		while((count < (this.cantidadNodos - 1)) && (i < this.arcosOrdenados.length)) {
+			IArco arc = this.arcosOrdenados[i];
 			ElementoConjunto conjNodoIzq = this.conjuntoDisjunto.findSet(arc.getNodoIzquierdo());
 			ElementoConjunto conjNodoDer = this.conjuntoDisjunto.findSet(arc.getNodoDerecho());
 			if(conjNodoIzq.getID() != conjNodoDer.getID()) {
@@ -183,12 +213,36 @@ public class Algoritmos {
 		System.out.println("Algoritmo de Kruskal completado correctamente.");
 		// Si la impresion de los arreglos padre y nivel estan habilitadas, imprimimos.
 		if(imprimirArbolCubrimiento) {
-			this.arbolCubrimiento.start();
-			while(this.arbolCubrimiento.hasNext()) {
-				IArco arc = this.arbolCubrimiento.next();
-				System.out.print(arc.toString()+" ");
+			this.printKruskal();
+		}
+	}
+	
+	private void KruskalHeap(boolean imprimirArbolCubrimiento) {
+		int count = 0;
+		while((count < (this.cantidadNodos - 1)) && (!this.heapArcos.isEmpty())) {
+			IArco arc = this.heapArcos.removeMin();
+			ElementoConjunto conjNodoIzq = this.conjuntoDisjunto.findSet(arc.getNodoIzquierdo());
+			ElementoConjunto conjNodoDer = this.conjuntoDisjunto.findSet(arc.getNodoDerecho());
+			if(conjNodoIzq.getID() != conjNodoDer.getID()) {
+				this.conjuntoDisjunto.union(conjNodoIzq, conjNodoDer);
+				this.arbolCubrimiento.add(arc);
+				count++;
 			}
 		}
+		System.out.println("Algoritmo de Kruskal completado correctamente.");
+		// Si la impresion de los arreglos padre y nivel estan habilitadas, imprimimos.
+		if(imprimirArbolCubrimiento) {
+			this.printKruskal();
+		}
+	}
+	
+	private void printKruskal() {
+		this.arbolCubrimiento.start();
+		while(this.arbolCubrimiento.hasNext()) {
+			IArco arc = this.arbolCubrimiento.next();
+			System.out.print(arc.toString()+" ");
+		}
+		System.out.println();
 	}
 }
 

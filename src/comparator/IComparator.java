@@ -1,4 +1,4 @@
-package Comparator;
+package comparator;
 
 
 public interface IComparator<E> {

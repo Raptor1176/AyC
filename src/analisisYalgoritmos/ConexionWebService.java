@@ -17,7 +17,7 @@ public class ConexionWebService{
 			//grafo.print();
 			System.out.println("Comienzo recorrido BFS");			
 			long t1=System.currentTimeMillis();
-			algoritmos.BFS(true);
+			algoritmos.iniciarBFS(true);
 			long t2=System.currentTimeMillis();
 			System.out.println("Tiempo BFS: "+(t2-t1)+" ms");
 			

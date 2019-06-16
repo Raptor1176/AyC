@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Grafo {
 	
 	private Nodo[] nodos; // Lista de nodos del grafo.
+	private int cantidadArcos;
 
 	/**
 	 * Constructor de la clase Grafo.
@@ -14,6 +15,7 @@ public class Grafo {
 	public Grafo(GrafoObj grafoJson){
 		// Obtenemos la lista de nodos del Json.
 		int [] nodosJson = grafoJson.nodos;
+		this.cantidadArcos = 0;
 		// Inicializamos la lista de nodos del grafo.
 		this.nodos = new Nodo[nodosJson.length];
 		// Por cada elemento de la lista de nodos del Json, creamos un nodo para el grafo.
@@ -32,6 +34,7 @@ public class Grafo {
 			int peso = ((Double) arcosJson[i][1]).intValue();
 			// Creamos un arco para el grafo pasando los nodos previamente creados y el peso.
 			Arco arc1 = new Arco(nodI, nodD, peso);
+			this.cantidadArcos++;
 			// Agregamos el arco creado a los nodos previamente creados.
 			nodI.addArco(arc1);			
 			nodD.addArco(arc1);
@@ -52,6 +55,10 @@ public class Grafo {
 	 */
 	public Nodo[] getNodos() {
 		return this.nodos;
+	}
+	
+	public int getCantidadArcos(){
+		return this.cantidadArcos;
 	}
 	
 	/**

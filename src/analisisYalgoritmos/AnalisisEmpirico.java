@@ -11,11 +11,14 @@ public class AnalisisEmpirico{
 	public static void main(String[] args) throws IOException {
 		
 		try{
-			Grafo grafo = getGrafo(10,40);
+			Grafo grafo = getGrafo(10,20);
 			Algoritmos algoritmos = new Algoritmos(grafo);
 			grafo.print();
-			//algoritmos.BFS(true);
-			algoritmos.Kruskal(true);
+			algoritmos.iniciarBFS(true);
+			algoritmos.iniciarKruskalOrdenado(true, true);
+			algoritmos.iniciarKruskalOrdenado(false, true);
+			algoritmos.iniciarKruskalHeap(true, true);
+			algoritmos.iniciarKruskalHeap(false, true);
 			
 			
 		} catch (Exception e) {
