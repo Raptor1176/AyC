@@ -10,23 +10,9 @@ import java.io.*;
 
 public class ConexionWebService{	
 	
-	public static void main(String[] args) throws IOException {		
-		try{
-			Grafo grafo = getGrafo(500,621,false);
-			Algoritmos algoritmos = new Algoritmos(grafo);
-			//grafo.print();
-			System.out.println("Comienzo recorrido BFS");			
-			long t1=System.currentTimeMillis();
-			algoritmos.iniciarBFS(true);
-			long t2=System.currentTimeMillis();
-			System.out.println("Tiempo BFS: "+(t2-t1)+" ms");
-			
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}		
-	}
 	
-	private static Grafo getGrafo(int nodos, int arcos, boolean conexo) throws Exception {		
+	
+	public static Grafo getGrafo(int nodos, int arcos, boolean conexo) throws Exception {		
 		/* Esta parte esta sacada de: 
 		 * https://docs.oracle.com/javase/tutorial/networking/urls/readingWriting.html
 		 */

@@ -65,7 +65,8 @@ public class ConjuntosDisjuntos implements IConjuntosDisjuntos{
 		// Obtengo los elementos padres (representantes) de los elementos		
 		int padreE1= this.padres[index1];
 		int padreE2= this.padres[index2];
-		
+		//System.out.println("Padre de "+index1 + " : " + padreE1);
+		//System.out.println("Padre de "+index2 + " : " + padreE2);
 		if(padreE1==padreE2) {
 			// Mismos padres, ambos pertenecen al mismo conjunto
 			// Entonces no hay que hacer nada
@@ -133,28 +134,42 @@ public class ConjuntosDisjuntos implements IConjuntosDisjuntos{
 
 	
 	public String toString() {
-		String s="";
-		String[] conjuntos= new String[elementos.length];
-		for (int i=0; i<conjuntos.length;i++) {  // n veces
-			conjuntos[i]="";
-		}	
-		int p;
-		for (int j=0; j<elementos.length;j++) {	// n veces
-			p=padres[j];
-			conjuntos[p]+=" "+elementos[j].getID();
+		String s="Padres: [ ";
+		for (int i=0; i<padres.length;i++) {
+			s+=padres[i]+ " ";
 		}
-		int cantConjuntos=0;
-		for (int k=0; k<conjuntos.length;k++) { // n veces
-			if(!conjuntos[k].equals("")) {
-				s+=" ["+conjuntos[k]+" ]";
-				cantConjuntos++;
-			}
+		s+="]\n";
+		s+="Rangos: [ ";
+		for (int j=0; j<elementos.length;j++) {
+			s+=rangos[j]+" ";
 		}
-		s+="\n Cantidad de conjuntos: "+cantConjuntos;
+		s+="]";
 		return s;
 	}
 	
 	/******************************************/
+	private int getRaiz(int i) {
+		System.out.println("getRaiz(i): "+i);
+		if (this.padres[i]==i) {
+			return i;
+		}
+		else {
+			return getRaiz(this.padres[i]);
+		}
+	}
+	
+	public boolean isOneSet() {
+		boolean primeraRaiz=false;
+		for (int i=0;i<padres.length;i++) {
+			if(padres[i]==i) {
+				if(!primeraRaiz)	
+					primeraRaiz=true;
+				else 
+					return false;
+			}
+		}
+		return true;
+	}
 	
 	
 }

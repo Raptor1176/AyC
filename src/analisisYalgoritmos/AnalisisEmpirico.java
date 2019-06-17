@@ -1,6 +1,7 @@
 package analisisYalgoritmos;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Random;
 import java.util.Scanner;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -8,33 +9,39 @@ import grafos.Grafo;
 
 public class AnalisisEmpirico{
 	
-	public static void main(String[] args) throws IOException {
-		
+	public static void main(String[] args) throws IOException {		
 		try{
-			Grafo grafo = getGrafo(10,20);
+			Random rnd = new Random();
+			int[] nodos= new int[10];
+			int[] arcos= new int[10];
+			
+			Grafo grafo;// = ConexionWebService.getGrafo(10,9,true);
+			for(int i=0; i<10; i++) {
+				nodos[i]=rnd.nextInt((i+1)*5);
+				arcos[i]=nodos[i]-1 +rnd.nextInt((i+1)*5);
+				grafo = ConexionWebService.getGrafo(nodos[i],arcos[i],true);
+				
+			}
+						
 			Algoritmos algoritmos = new Algoritmos(grafo);
 			grafo.print();
-			algoritmos.iniciarBFS(true);
-			algoritmos.iniciarKruskalOrdenado(true, true);
-			algoritmos.iniciarKruskalOrdenado(false, true);
-			algoritmos.iniciarKruskalHeap(true, true);
-			algoritmos.iniciarKruskalHeap(false, true);
+			//System.out.println("Comienzo recorrido BFS");			
+			//long t1=System.currentTimeMillis();
+			//algoritmos.iniciarBFS(true);
+			//long t2=System.currentTimeMillis();
+			//System.out.println("Tiempo BFS: "+(t2-t1)+" ms");
+			
+			//System.out.println(algoritmos.conexoBFS());
+			//System.out.println(algoritmos.conexoDisjointSet());
+			//algoritmos.arbolDeCubrimientoOCH();
+			//algoritmos.arbolDeCubrimientoOSH();
+			//algoritmos.arbolDeCubrimientoHCH();
+			//algoritmos.arbolDeCubrimientoHSH();
 			
 			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-		}
-		
-		
-		/*
-		 * Generar varios grafos de diferente configuraci�n y buscar 
-		 * �rbol de cubrimiento minimal para cada uno. 
-		 * 
-		 * Medir el rendimiento usando timestamps.
-		 * 
-		 */
-		
-		
+		}		
 	}
 
 	private static Grafo getGrafo(int nodos, int arcos) throws Exception {

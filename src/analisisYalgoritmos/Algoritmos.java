@@ -1,7 +1,6 @@
 package analisisYalgoritmos;
 
 import java.awt.Color;
-import conjuntosDisjuntos.IConjuntosDisjuntos;
 import conjuntosDisjuntos.ConjuntosDisjuntos;
 import conjuntosDisjuntos.ElementoConjunto;
 import grafos.Grafo;
@@ -28,6 +27,68 @@ public class Algoritmos {
 	
 	public Algoritmos(Grafo graf) {
 		this.grafo = graf;
+	}
+	
+	public boolean conexoBFS() {
+		this.iniciarBFS(false);
+		for(int i = 1; i < this.padre.length; i++) {
+			if(this.padre[i] == -1) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public boolean conexoDisjointSet() {
+		this.listaArcos = new Lista<IArco>();
+		this.cantidadNodos = this.grafo.getNodos().length;
+		this.conjuntoDisjunto = new ConjuntosDisjuntos(cantidadNodos, true);
+		for(Nodo n: this.grafo.getNodos()){
+			this.conjuntoDisjunto.makeSet(n);
+			n.getArcos().start();
+			while(n.getArcos().hasNext()) {
+				IArco arc = n.getArcos().next();
+				if(arc.getMarca() == 0)
+				{
+					this.listaArcos.add(arc);
+					arc.setMarca(1);
+				}
+				else {
+					arc.setMarca(0);
+				}
+			}
+		}
+		this.listaArcos.start();
+		while(this.listaArcos.hasNext()) {
+			IArco arc = this.listaArcos.next();
+			ElementoConjunto conjNodoIzq = arc.getNodoIzquierdo();
+			ElementoConjunto conjNodoDer = arc.getNodoDerecho();
+			this.conjuntoDisjunto.union(conjNodoIzq, conjNodoDer);
+			//System.out.print(conjNodoIzq.getID()+" U ");
+			//System.out.println(conjNodoDer.getID()+ " ");
+		}
+		System.out.println(this.conjuntoDisjunto.toString());
+		return this.conjuntoDisjunto.isOneSet();
+	}
+	
+	public Lista<IArco> arbolDeCubrimientoOCH(){
+		this.iniciarKruskalOrdenado(true, false);
+		return this.arbolCubrimiento;
+	}
+	
+	public Lista<IArco> arbolDeCubrimientoOSH(){
+		this.iniciarKruskalOrdenado(false, false);
+		return this.arbolCubrimiento;
+	}
+	
+	public Lista<IArco> arbolDeCubrimientoHCH(){
+		this.iniciarKruskalHeap(true, false);
+		return this.arbolCubrimiento;
+	}
+	
+	public Lista<IArco> arbolDeCubrimientoHSH(){
+		this.iniciarKruskalHeap(false, false);
+		return this.arbolCubrimiento;
 	}
 	
 	public void iniciarBFS (boolean imprimirPadreyNivel) {
