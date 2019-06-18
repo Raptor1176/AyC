@@ -1,34 +1,82 @@
 package analisisYalgoritmos;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.Random;
-import java.util.Scanner;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import grafos.Grafo;
 
 public class AnalisisEmpirico{
 	
+	private static Grafo grafo;
+	private static long start;
+	private static long elapsedTime;
+
+	private static int[] nodos= {100,100,100,100};
+	private static int[] arcos1= {99,1000,2500,4000};			
+	private static int[][] tiempo= new int[nodos.length][4];
+	
+	
 	public static void main(String[] args) throws IOException {		
-		try{
-			Random rnd = new Random();
-			int[] nodos= new int[10];
-			int[] arcos= new int[10];
+		try{			
 			
-			Grafo grafo;// = ConexionWebService.getGrafo(10,9,true);
-			for(int i=0; i<10; i++) {
-				nodos[i]=rnd.nextInt((i+1)*5);
-				arcos[i]=nodos[i]-1 +rnd.nextInt((i+1)*5);
-				grafo = ConexionWebService.getGrafo(nodos[i],arcos[i],true);
+			for(int t=0; t<10; t++){				
+				for(int i=0; i<nodos.length; i++) {
+					grafo = ConexionWebService.getGrafo(nodos[i],arcos1[i],true);
+					Algoritmos algoritmos = new Algoritmos(grafo);
+					
+					/*
+					System.out.println("Nodos: "+nodos[i]+" Arcos: "+ arcos1[i]);
+					start = System.nanoTime();    
+					elapsedTime = System.nanoTime() - start;
+					//grafo.print();
+					System.out.println("recorrido bfs: "+ elapsedTime);					
+					 */
+					
+					start = System.nanoTime();    
+					algoritmos.arbolDeCubrimientoOCH();
+					elapsedTime = System.nanoTime() - start;
+					tiempo[i][0]+= elapsedTime;					
+					
+					start = System.nanoTime();    
+					algoritmos.arbolDeCubrimientoOSH();
+					elapsedTime = System.nanoTime() - start;
+					tiempo[i][1]+= elapsedTime;					
+					
+					start = System.nanoTime();
+					algoritmos.arbolDeCubrimientoHCH();
+					elapsedTime = System.nanoTime() - start;
+					tiempo[i][2]+= elapsedTime;					
+					
+					start = System.nanoTime();    
+					algoritmos.arbolDeCubrimientoHSH();
+					elapsedTime = System.nanoTime() - start;
+					tiempo[i][3]+= elapsedTime;					
+					
+						
+					System.out.println();
+	
+				}
 				
 			}
-						
-			Algoritmos algoritmos = new Algoritmos(grafo);
-			grafo.print();
+			
+			for(int i=0; i<nodos.length; i++){
+				System.out.println("Nodos:"+ nodos[i]+" Arcos: "+arcos1[i]);
+				
+				System.out.print("Ordenado CON heuristica: ");
+				System.out.println(tiempo[i][0]/10+" ");
+				System.out.print("Ordenado SIN heuristica: ");
+				System.out.println(tiempo[i][1]/10+" ");
+				System.out.print("Heap CON heuristica: ");
+				System.out.println(tiempo[i][2]/10+" ");
+				System.out.print("Heap SIN heuristica: ");
+				System.out.println(tiempo[i][3]/10+" ");
+				
+					
+				System.out.println();
+			}
+			
+			//grafo.print();
 			//System.out.println("Comienzo recorrido BFS");			
-			//long t1=System.currentTimeMillis();
+			//long t1=System.nanoTime();
 			//algoritmos.iniciarBFS(true);
-			//long t2=System.currentTimeMillis();
+			//long t2=System.nanoTime();
 			//System.out.println("Tiempo BFS: "+(t2-t1)+" ms");
 			
 			//System.out.println(algoritmos.conexoBFS());
@@ -44,6 +92,7 @@ public class AnalisisEmpirico{
 		}		
 	}
 
+	/*
 	private static Grafo getGrafo(int nodos, int arcos) throws Exception {
 		// TODO Auto-generated method stub
 		String consulta = "curl http://cs.uns.edu.ar/~mom/AyC2019/grafo.php?nodos="+nodos+"&arcos="+arcos;
@@ -66,4 +115,6 @@ public class AnalisisEmpirico{
 			throw new Exception(jsonString);
 		}			
 	}
+	*/
+	
 }
