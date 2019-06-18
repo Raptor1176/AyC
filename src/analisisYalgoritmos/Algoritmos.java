@@ -14,103 +14,161 @@ import listas.Lista;
 
 public class Algoritmos {
 
-	private Grafo grafo;
+	private Grafo grafo; // Grafo utilizado para los algoritmos implementados.
 	private int[] padre; // Arreglo de padres de cada nodo utilizado para el recorrido BFS.
 	private int[] nivel; // Arreglo de niveles de cada nodo utilizado para el recorrido BFS.
 	
-	private ConjuntosDisjuntos conjuntoDisjunto;
-	private Lista<IArco> listaArcos;
-	private IArco[] arcosOrdenados;
-	private Heap heapArcos;
-	private Lista<IArco> arbolCubrimiento;
-	private int cantidadNodos;
+	private ConjuntosDisjuntos conjuntoDisjunto; // Conjunto disjunto utilizado para conectitud y Kruskal.
+	private Lista<IArco> listaArcos; // Lista de arcos del grafo, utilizada para Kruskal.
+	private IArco[] arcosOrdenados; // Arreglo auxiliar para guardar los arcos ordenados para Kruskal.
+	private Heap heapArcos; // Heap utilizado para almacenar los arcos para Kruskal.
+	private Lista<IArco> arbolCubrimiento; // Lista donde queda almacenado el arbol de cubrimiento luego de aplicar Kruskal.
+	private int cantidadNodos; // Cantidad de nodos del grafo.
 	
+	/**
+	 * Constructor de la clase Algoritmos.
+	 * @param graf Grafo de entrada que se utiliza en los algoritmos.
+	 */
 	public Algoritmos(Grafo graf) {
 		this.grafo = graf;
 	}
 	
+	/**
+	 * Metodo utilizado para calcular si un grafo es conexo utilizando BFS.
+	 * @return TRUE si en el arreglo padre hay solo un -1 (unica raiz), FALSE en caso contrario.
+	 */
 	public boolean conexoBFS() {
+		// Hacemos un recorrido BFS.
 		this.iniciarBFS(false);
-		for(int i = 1; i < this.padre.length; i++) {
+		// Recorremos el arreglo padre y si detectamos mas de un -1 es que hay mas de un arbol
+		// en la foresta, por lo tanto el grafo no es conexo.
+		for(int i = 1; i < this.padre.length; i++) {//O(n)
 			if(this.padre[i] == -1) {
 				return false;
 			}
 		}
+		// Si hay solo un -1 quiere decir que hay un solo arbol en la foresta,
+		// por lo tanto el grafo es conexo.
 		return true;
 	}
 	
+	/**
+	 * Metodo utilizado para calcular si un grafo es conexo utilizando conjuntos disjuntos.
+	 * @return ****************************COMPLETAR CUANDO ESTE TERMINADO*****************
+	 */
 	public boolean conexoDisjointSet() {
-		this.listaArcos = new Lista<IArco>();
-		this.cantidadNodos = this.grafo.getNodos().length;
-		this.conjuntoDisjunto = new ConjuntosDisjuntos(cantidadNodos, true);
-		for(Nodo n: this.grafo.getNodos()){
-			this.conjuntoDisjunto.makeSet(n);
+		// Inicializamos la lista de arcos.
+		this.listaArcos = new Lista<IArco>();//c
+		// Obtenemos la cantidad de nodos del grafo.
+		this.cantidadNodos = this.grafo.getNodos().length;//c
+		// Inicializamos el conjunto disjunto.
+		this.conjuntoDisjunto = new ConjuntosDisjuntos(cantidadNodos, true);//c
+		// Para cada nodo del grafo...
+		for(Nodo n : this.grafo.getNodos()){// cant nodos
+			// Creamos un conjunto con ese nodo.
+			this.conjuntoDisjunto.makeSet(n);// c
 			n.getArcos().start();
-			while(n.getArcos().hasNext()) {
+			// Para cada arco de ese nodo...
+			while(n.getArcos().hasNext()) { //cant arcos
 				IArco arc = n.getArcos().next();
-				if(arc.getMarca() == 0)
-				{
+				// Si no esta marcado...
+				if(arc.getMarca() == 0) {
+					// Lo agregamos a la lista de arcos.
 					this.listaArcos.add(arc);
+					// Y lo marcamos.
 					arc.setMarca(1);
 				}
 				else {
+					// Si esta marcado, lo desmarcamos.
 					arc.setMarca(0);
 				}
 			}
 		}
 		this.listaArcos.start();
-		while(this.listaArcos.hasNext()) {
+		// Para cada arco en la lista de arcos...
+		while(this.listaArcos.hasNext()) {// cant arcos
 			IArco arc = this.listaArcos.next();
+			// Obtenemos los nodos que conecta ese arco...
 			ElementoConjunto conjNodoIzq = arc.getNodoIzquierdo();
 			ElementoConjunto conjNodoDer = arc.getNodoDerecho();
+			// Y los unimos en un mismo conjunto.
 			this.conjuntoDisjunto.union(conjNodoIzq, conjNodoDer);
-			//System.out.print(conjNodoIzq.getID()+" U ");
-			//System.out.println(conjNodoDer.getID()+ " ");
 		}
-		System.out.println(this.conjuntoDisjunto.toString());
+		// Al finalizar preguntamos si el conjunto que nos quedo es un unico conjunto.
 		return this.conjuntoDisjunto.isOneSet();
 	}
 	
+	/**
+	 * Metodo utilizado para obtener el arbol de cubrimiento de un grafo utilizando Kruskal
+	 * sobre una lista ordenada de arcos, utilizando heuristicas en el conjunto disjunto.
+	 * @return Lista de arcos que representan el arbol de cubrimiento para el grafo.
+	 */
 	public Lista<IArco> arbolDeCubrimientoOCH(){
 		this.iniciarKruskalOrdenado(true, false);
 		return this.arbolCubrimiento;
 	}
 	
+	/**
+	 * Metodo utilizado para obtener el arbol de cubrimiento de un grafo utilizando Kruskal
+	 * sobre una lista ordenada de arcos, sin utilizar heuristicas en el conjunto disjunto.
+	 * @return Lista de arcos que representan el arbol de cubrimiento para el grafo.
+	 */
 	public Lista<IArco> arbolDeCubrimientoOSH(){
 		this.iniciarKruskalOrdenado(false, false);
 		return this.arbolCubrimiento;
 	}
 	
+	/**
+	 * Metodo utilizado para obtener el arbol de cubrimiento de un grafo utilizando Kruskal
+	 * sobre un min heap de arcos, utilizando heuristicas en el conjunto disjunto.
+	 * @return Lista de arcos que representan el arbol de cubrimiento para el grafo.
+	 */
 	public Lista<IArco> arbolDeCubrimientoHCH(){
 		this.iniciarKruskalHeap(true, false);
 		return this.arbolCubrimiento;
 	}
 	
+	/**
+	 * Metodo utilizado para obtener el arbol de cubrimiento de un grafo utilizando Kruskal
+	 * sobre un min heap de arcos, sin utilizar heuristicas en el conjunto disjunto.
+	 * @return Lista de arcos que representan el arbol de cubrimiento para el grafo.
+	 */
 	public Lista<IArco> arbolDeCubrimientoHSH(){
 		this.iniciarKruskalHeap(false, false);
 		return this.arbolCubrimiento;
 	}
 	
+	/**
+	 * Metodo utilizado para iniciar las estructuras que utiliza el recorrido BFS
+	 * y luego iniciar dicho recorrido. Al finalizar el arreglo padre y nivel quedaran completados.
+	 * @param imprimirPadreyNivel Booleano que determina si se imprimen los arreglos padre y nivel al finalizar.
+	 */
 	public void iniciarBFS (boolean imprimirPadreyNivel) {
 		// Creamos el arreglo padres.
-		this.padre = new int[this.grafo.getNodos().length];
+		this.padre = new int[this.grafo.getNodos().length]; //O(1)
 		// Inicializamos los elementos del arreglo padre en -1 para identiicar las raices de la foresta del recorrido.
-		for(int i=0; i < this.padre.length; i++) {
-			this.padre[i] = -1;
+		for(int i=0; i < this.padre.length; i++) { //n *
+			this.padre[i] = -1;//O(1)
 		}
 		// Creamos el arreglo nivel.
 		this.nivel = new int[this.grafo.getNodos().length];
 		this.BFS(imprimirPadreyNivel);
 	}
 	
+	/**
+	 * Metodo utilizado para iniciar las estructuras que utiliza Kruskal con un arreglo ordenado y
+	 * luego iniciar el algoritmo de Kruskal. Al finalizar, la lista arbolCubrimiento contendra el resultado.
+	 * @param conHeuristica Booleano que determina si se utilizan heuristicas en el conjunto disjunto.
+	 * @param imprimirArbolCubrimiento Booleano que determina si se imprime la lista que representa el arbol de cubrimiento al finalizar.
+	 */
 	public void iniciarKruskalOrdenado (boolean conHeuristica, boolean imprimirArbolCubrimiento) {
 		this.listaArcos = new Lista<IArco>();
 		this.cantidadNodos = this.grafo.getNodos().length;
 		this.conjuntoDisjunto = new ConjuntosDisjuntos(cantidadNodos, conHeuristica);
-		for(Nodo n: this.grafo.getNodos()){
+		for(Nodo n: this.grafo.getNodos()){// cantidad de nodos
 			this.conjuntoDisjunto.makeSet(n);
 			n.getArcos().start();
-			while(n.getArcos().hasNext()) {
+			while(n.getArcos().hasNext()) {// Cantidad de arcos
 				IArco arc = n.getArcos().next();
 				if(arc.getMarca() == 0)
 				{
@@ -123,23 +181,29 @@ public class Algoritmos {
 			}
 		}
 		this.arbolCubrimiento = new Lista<IArco>();
-		this.HeapSort();
+		this.HeapSort(); //n log n
 		this.KruskalOrdenado(imprimirArbolCubrimiento);
 	}
 	
+	/**
+	 * Metodo utilizado para iniciar las estructuras que utiliza Kruskal con un min heap y
+	 * luego iniciar el algoritmo de Kruskal. Al finalizar, la lista arbolCubrimiento contendra el resultado.
+	 * @param conHeuristica Booleano que determina si se utilizan heuristicas en el conjunto disjunto.
+	 * @param imprimirArbolCubrimiento Booleano que determina si se imprime la lista que representa el arbol de cubrimiento al finalizar.
+	 */
 	public void iniciarKruskalHeap (boolean conHeuristica, boolean imprimirArbolCubrimiento) {
 		this.listaArcos = new Lista<IArco>();
 		this.cantidadNodos = this.grafo.getNodos().length;
 		this.conjuntoDisjunto = new ConjuntosDisjuntos(cantidadNodos, conHeuristica);
 		this.heapArcos = new Heap(this.grafo.getCantidadArcos());
-		for(Nodo n: this.grafo.getNodos()){
+		for(Nodo n: this.grafo.getNodos()){//cant nodos
 			this.conjuntoDisjunto.makeSet(n);
 			n.getArcos().start();
-			while(n.getArcos().hasNext()) {
+			while(n.getArcos().hasNext()) {// cant arcos
 				IArco arc = n.getArcos().next();
 				if(arc.getMarca() == 0)
 				{
-					this.heapArcos.insert(arc);
+					this.heapArcos.insert(arc);//cant arcos
 					arc.setMarca(1);
 				}
 				else {
@@ -153,7 +217,7 @@ public class Algoritmos {
 	
 	/**
 	 * Metodo que se encarga de realizar el recorrido BFS del grafo.
-	 * Al finalizar, en los atributos padre y nivel quedan los resultados del recorrido.
+	 * Al finalizar, en los arreglos padre y nivel quedan los resultados del recorrido.
 	 * @param imprimirPadreyNivel Booleano que determina si se imprimen los arreglos padre y nivel al finalizar el recorrido.
 	 */
 	private void BFS(boolean imprimirPadreyNivel) {
@@ -235,28 +299,34 @@ public class Algoritmos {
 	}
 	
 	/**
-	 * Ordeno la lista de arcos con un heap
-	 * @return Un arreglo de arcos ordenados por menor peso
+	 * Metodo utilizado para ordenar la lista de arcos del grafo.
+	 * Al finalizar quedaran los arcos ordenados de menor a mayor
+	 * en el arreglo arcosOrdenados.
 	 */
 	private void HeapSort() {
+		// Creo un heap.
 		IHeap heap = new Heap(this.listaArcos.size());
+		// Inicializo el arreglo que contendra los arcos ordenados.
 		this.arcosOrdenados = new IArco[this.listaArcos.size()];
-		// Inserto todos en un heap
 		this.listaArcos.start();
+		// Recorro la lista de arcos, insertando cada uno en el heap.
 		while(this.listaArcos.hasNext()) {
 			heap.insert(this.listaArcos.next());
 		}
 		int i=0;
-		// Mientras el heap no este vacio
+		// Mientras el heap no este vacio.
 		while(!heap.isEmpty()) {
-			// Elimino arco minimo y lo guardo en el arreglo
+			// Elimino arco minimo y lo guardo en el arreglo.
 			this.arcosOrdenados[i] = heap.removeMin();
 			i++;
 		}
 	}
 	
-	
-	
+	/**
+	 * Metodo utilizado para calcular Kruskal utilizando un arreglo de arcos ordenado.
+	 * Al finalizar quedara el arbol de cubrimiento en la lista arbolCubrimiento.
+	 * @param imprimirArbolCubrimiento Booleano que determina si se imprime la lista arbolCubrimiento al finalizar.
+	 */
 	private void KruskalOrdenado(boolean imprimirArbolCubrimiento) {
 		int count = 0;
 		int i = 0;
@@ -278,6 +348,11 @@ public class Algoritmos {
 		}
 	}
 	
+	/**
+	 * Metodo utilizado para calcular Kruskal utilizando un min heap de arcos.
+	 * Al finalizar quedara el arbol de cubrimiento en la lista arbolCubrimiento.
+	 * @param imprimirArbolCubrimiento Booleano que determina si se imprime la lista arbolCubrimiento al finalizar.
+	 */
 	private void KruskalHeap(boolean imprimirArbolCubrimiento) {
 		int count = 0;
 		while((count < (this.cantidadNodos - 1)) && (!this.heapArcos.isEmpty())) {
@@ -297,6 +372,9 @@ public class Algoritmos {
 		}
 	}
 	
+	/**
+	 * Metodo auxiliar utilizado para imprimir el arbol de cubrimiento generado por Kruskal.
+	 */
 	private void printKruskal() {
 		this.arbolCubrimiento.start();
 		while(this.arbolCubrimiento.hasNext()) {

@@ -11,18 +11,9 @@ public class AnalisisEmpirico{
 	
 	public static void main(String[] args) throws IOException {		
 		try{
-			Random rnd = new Random();
-			int[] nodos= new int[10];
-			int[] arcos= new int[10];
-			
-			Grafo grafo;// = ConexionWebService.getGrafo(10,9,true);
-			for(int i=0; i<10; i++) {
-				nodos[i]=rnd.nextInt((i+1)*5);
-				arcos[i]=nodos[i]-1 +rnd.nextInt((i+1)*5);
-				grafo = ConexionWebService.getGrafo(nodos[i],arcos[i],true);
-				
-			}
-						
+					
+			Grafo grafo = ConexionWebService.getGrafo(10,9,true);
+									
 			Algoritmos algoritmos = new Algoritmos(grafo);
 			grafo.print();
 			//System.out.println("Comienzo recorrido BFS");			
