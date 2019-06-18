@@ -152,6 +152,7 @@ public class Algoritmos {
 		}
 		// Creamos el arreglo nivel.
 		this.nivel = new int[this.grafo.getNodos().length];
+		// Iniciamos el recorrido BFS.
 		this.BFS(imprimirPadreyNivel);
 	}
 	
@@ -162,26 +163,38 @@ public class Algoritmos {
 	 * @param imprimirArbolCubrimiento Booleano que determina si se imprime la lista que representa el arbol de cubrimiento al finalizar.
 	 */
 	public void iniciarKruskalOrdenado (boolean conHeuristica, boolean imprimirArbolCubrimiento) {
+		// Inicializamos la lista de arcos.
 		this.listaArcos = new Lista<IArco>();
+		// Obtenemos la cantidad de nodos del grafo.
 		this.cantidadNodos = this.grafo.getNodos().length;
+		// Inicializamos la estructura conjuntos disjuntos.
 		this.conjuntoDisjunto = new ConjuntosDisjuntos(cantidadNodos, conHeuristica);
-		for(Nodo n: this.grafo.getNodos()){// cantidad de nodos
+		// Para cada nodo del grafo...
+		for(Nodo n : this.grafo.getNodos()){// cantidad de nodos
+			// Creamos un conjunto para cada uno.
 			this.conjuntoDisjunto.makeSet(n);
 			n.getArcos().start();
+			// Para cada arco del nodo...
 			while(n.getArcos().hasNext()) {// Cantidad de arcos
 				IArco arc = n.getArcos().next();
-				if(arc.getMarca() == 0)
-				{
+				// Si no esta marcado...
+				if(arc.getMarca() == 0) {
+					// Lo agregamos a la lista de arcos.
 					this.listaArcos.add(arc);
+					// Y lo marcamos.
 					arc.setMarca(1);
 				}
 				else {
+					// Si esta marcado, lo desmarcamos.
 					arc.setMarca(0);
 				}
 			}
 		}
+		// Inicializamos la lista que contendra el arbol de cubrimiento.
 		this.arbolCubrimiento = new Lista<IArco>();
+		// Ejecutamos un heapsort para ordenar la lista de arcos.
 		this.HeapSort(); //n log n
+		// Iniciamos el algoritmo de Kruskal.
 		this.KruskalOrdenado(imprimirArbolCubrimiento);
 	}
 	
@@ -192,26 +205,38 @@ public class Algoritmos {
 	 * @param imprimirArbolCubrimiento Booleano que determina si se imprime la lista que representa el arbol de cubrimiento al finalizar.
 	 */
 	public void iniciarKruskalHeap (boolean conHeuristica, boolean imprimirArbolCubrimiento) {
+		// Inicializamos la lista de arcos.
 		this.listaArcos = new Lista<IArco>();
+		// Obtenemos la cantidad de nodos del grafo.
 		this.cantidadNodos = this.grafo.getNodos().length;
+		// Inicializamos la estructura conjuntos disjuntos.
 		this.conjuntoDisjunto = new ConjuntosDisjuntos(cantidadNodos, conHeuristica);
+		// Inicializamos el heap que contendra los arcos.
 		this.heapArcos = new Heap(this.grafo.getCantidadArcos());
+		// Para cada nodo del grafo...
 		for(Nodo n: this.grafo.getNodos()){//cant nodos
+			// Creamos un conjunto para cada uno.
 			this.conjuntoDisjunto.makeSet(n);
 			n.getArcos().start();
+			// Para cada arco de ese nodo...
 			while(n.getArcos().hasNext()) {// cant arcos
 				IArco arc = n.getArcos().next();
-				if(arc.getMarca() == 0)
-				{
+				// Si no esta marcado...
+				if(arc.getMarca() == 0) {
+					// Lo agregamos al heap de arcos.
 					this.heapArcos.insert(arc);//cant arcos
+					// Y lo marcamos.
 					arc.setMarca(1);
 				}
 				else {
+					// Si esta marcado, lo desmarcamos.
 					arc.setMarca(0);
 				}
 			}
 		}
+		// Inicializamos la lista que contendra el arbol de cubrimiento.
 		this.arbolCubrimiento = new Lista<IArco>();
+		// Iniciamos el algoritmo de Kruskal.
 		this.KruskalHeap(imprimirArbolCubrimiento);
 	}
 	
@@ -328,14 +353,22 @@ public class Algoritmos {
 	 * @param imprimirArbolCubrimiento Booleano que determina si se imprime la lista arbolCubrimiento al finalizar.
 	 */
 	private void KruskalOrdenado(boolean imprimirArbolCubrimiento) {
+		// Contador para la cantidad de nodos.
 		int count = 0;
+		// Contador para la cantidad de arcos.
 		int i = 0;
+		// Mientras no hayamos recorrido mas de la cantidad de nodos y mientras haya arcos sin recorrer.
 		while((count < (this.cantidadNodos - 1)) && (i < this.arcosOrdenados.length)) {
+			// Obtenemos cada arco.
 			IArco arc = this.arcosOrdenados[i];
+			// Obtenemos el representante del conjunto de cada uno de los nodos que conecta el arco.
 			ElementoConjunto conjNodoIzq = this.conjuntoDisjunto.findSet(arc.getNodoIzquierdo());
 			ElementoConjunto conjNodoDer = this.conjuntoDisjunto.findSet(arc.getNodoDerecho());
+			// Si son diferentes los representantes del conjunto...
 			if(conjNodoIzq.getID() != conjNodoDer.getID()) {
+				// Unimos ambos conjuntos.
 				this.conjuntoDisjunto.union(conjNodoIzq, conjNodoDer);
+				// Y añadimos ese arco al arbol de cubrimiento.
 				this.arbolCubrimiento.add(arc);
 				count++;
 			}
@@ -354,13 +387,20 @@ public class Algoritmos {
 	 * @param imprimirArbolCubrimiento Booleano que determina si se imprime la lista arbolCubrimiento al finalizar.
 	 */
 	private void KruskalHeap(boolean imprimirArbolCubrimiento) {
+		// Contador para la cantidad de nodos.
 		int count = 0;
+		// Mientras no hayamos recorrido mas de la cantidad de nodos y mientras haya arcos en el heap.
 		while((count < (this.cantidadNodos - 1)) && (!this.heapArcos.isEmpty())) {
+			// Obtenemos cada arco.
 			IArco arc = this.heapArcos.removeMin();
+			// Obtenemos el representante del conjunto de cada uno de los nodos que conecta el arco.
 			ElementoConjunto conjNodoIzq = this.conjuntoDisjunto.findSet(arc.getNodoIzquierdo());
 			ElementoConjunto conjNodoDer = this.conjuntoDisjunto.findSet(arc.getNodoDerecho());
+			// Si son diferentes los representantes del conjunto...
 			if(conjNodoIzq.getID() != conjNodoDer.getID()) {
+				// Unimos ambos conjuntos.
 				this.conjuntoDisjunto.union(conjNodoIzq, conjNodoDer);
+				// Y añadimos ese arco al arbol de cubrimiento.
 				this.arbolCubrimiento.add(arc);
 				count++;
 			}
