@@ -39,12 +39,12 @@ public class Algoritmos {
 	 */
 	public boolean conexoBFS() {
 		// Hacemos un recorrido BFS.
-		this.iniciarBFS(false);
+		this.iniciarBFS(false); // O()
 		// Recorremos el arreglo padre y si detectamos mas de un -1 es que hay mas de un arbol
 		// en la foresta, por lo tanto el grafo no es conexo.
-		for(int i = 1; i < this.padre.length; i++) {//O(n)
-			if(this.padre[i] == -1) {
-				return false;
+		for(int i = 1; i < this.padre.length; i++) { // O(n)
+			if(this.padre[i] == -1) { // O(1)
+				return false; // O(1)
 			}
 		}
 		// Si hay solo un -1 quiere decir que hay un solo arbol en la foresta,
@@ -62,7 +62,7 @@ public class Algoritmos {
 		// Obtenemos la cantidad de nodos del grafo.
 		this.cantidadNodos = this.grafo.getNodos().length;//c
 		// Inicializamos el conjunto disjunto.
-		this.conjuntoDisjunto = new ConjuntosDisjuntos(cantidadNodos, true);//c
+		this.conjuntoDisjunto = new ConjuntosDisjuntos(cantidadNodos, false);//c
 		// Para cada nodo del grafo...
 		for(Nodo n : this.grafo.getNodos()){// cant nodos
 			// Creamos un conjunto con ese nodo.
@@ -95,6 +95,7 @@ public class Algoritmos {
 			this.conjuntoDisjunto.union(conjNodoIzq, conjNodoDer);
 		}
 		// Al finalizar preguntamos si el conjunto que nos quedo es un unico conjunto.
+		System.out.println(this.conjuntoDisjunto.toString());
 		return this.conjuntoDisjunto.isOneSet();
 	}
 	
@@ -145,15 +146,15 @@ public class Algoritmos {
 	 */
 	public void iniciarBFS (boolean imprimirPadreyNivel) {
 		// Creamos el arreglo padres.
-		this.padre = new int[this.grafo.getNodos().length]; //O(1)
+		this.padre = new int[this.grafo.getNodos().length]; // O(1)
 		// Inicializamos los elementos del arreglo padre en -1 para identiicar las raices de la foresta del recorrido.
-		for(int i=0; i < this.padre.length; i++) { //n *
-			this.padre[i] = -1;//O(1)
+		for(int i=0; i < this.padre.length; i++) { // O(n)
+			this.padre[i] = -1; // O(1)
 		}
 		// Creamos el arreglo nivel.
-		this.nivel = new int[this.grafo.getNodos().length];
+		this.nivel = new int[this.grafo.getNodos().length]; // O(1)
 		// Iniciamos el recorrido BFS.
-		this.BFS(imprimirPadreyNivel);
+		this.BFS(imprimirPadreyNivel); // O()
 	}
 	
 	/**
@@ -247,19 +248,19 @@ public class Algoritmos {
 	 */
 	private void BFS(boolean imprimirPadreyNivel) {
 		// Marcamos los nodos del grafo como blancos.
-		for(Nodo n : this.grafo.getNodos()) {
-			n.setMarca(Color.WHITE);
+		for(Nodo n : this.grafo.getNodos()) { // O(N) , N = cantidad nodos
+			n.setMarca(Color.WHITE); // O(1)
 		}
 		// Creamos una cola para manejar los nodos.
-		Cola<INodo> Q = new Cola<INodo>();
+		Cola<INodo> Q = new Cola<INodo>(); // O(1)
 		// Por cada nodo en la lista de nodos...
-		for(Nodo n : this.grafo.getNodos()) {
+		for(Nodo n : this.grafo.getNodos()) { // O(N) , N = cantidad nodos
 			// Si es un nodo blanco...
-			if(n.getMarca().equals(Color.WHITE)) {
+			if(n.getMarca().equals(Color.WHITE)) { // O(1)
 				// Lo marcamos en gris.
-				n.setMarca(Color.GRAY);
+				n.setMarca(Color.GRAY); // O(1)
 				// Lo agregamos a la cola.
-				Q.addLast(n);
+				Q.addLast(n); // O(1)
 				// Y comenzamos el proceso de visitar.
 				this.visitarBF(Q);
 			}
@@ -286,40 +287,40 @@ public class Algoritmos {
 	 */
 	private void visitarBF(Cola<INodo> Q) {
 		// Mientras la cola no este vacia...
-		while(!Q.vacia()) {
+		while(!Q.vacia()) { // O(A) , A = cantidad de arcos.
 			// Obtenemos el nodo del tope.
-			INodo u = Q.tope();
+			INodo u = Q.tope(); // O(1)
 			// Obtenemos la lista de arcos de ese nodo.
-			Lista<IArco> arcList = u.getArcos();
-			arcList.start();
+			Lista<IArco> arcList = u.getArcos(); // O(1)
+			arcList.start(); // O(1)
 			// Mientras haya arcos en esa lista...
-			while(arcList.hasNext()) {
+			while(arcList.hasNext()) { // O(A) , A = cantidad de arcos.
 				// Obtenemos un arco.
-				IArco arc = arcList.next();
+				IArco arc = arcList.next(); // O(1)
 				// Obtenemos el nodo que derecho de ese arco.
-				INodo w = arc.getNodoDerecho();
+				INodo w = arc.getNodoDerecho(); // O(1)
 				// Si el nodo derecho, es el nodo donde empezamos.
-				if(u.getID() == w.getID()) {
+				if(u.getID() == w.getID()) { // O(1)
 					// Obtenemos el izquierdo.
-					w = arc.getNodoIzquierdo();
+					w = arc.getNodoIzquierdo(); // O(1)
 				}
 				// Si el nodo obtenido es de color blanco.
-				if(w.getMarca().equals(Color.WHITE)) {
+				if(w.getMarca().equals(Color.WHITE)) { // O(1)
 					// Lo marcamos en gris.
-					w.setMarca(Color.GRAY);
+					w.setMarca(Color.GRAY); // O(1)
 					// Seteamos como padre, el nodo anterior.
-					this.padre[w.getID()] = u.getID();
+					this.padre[w.getID()] = u.getID(); // O(1)
 					// Seteamos como nivel, el nivel del padre mas uno.
-					this.nivel[w.getID()] = this.nivel[u.getID()] + 1;
+					this.nivel[w.getID()] = this.nivel[u.getID()] + 1; // O(1)
 					// Y lo agregamos a la cola.
-					Q.addLast(w);
+					Q.addLast(w); // O(1)
 				}
 			}
 			// Si la lista de arcos se vacia quiere decir que ya analizamos todos los adyacentes del nodo.
 			// Por lo tanto, lo marcamos como negro.
-			u.setMarca(Color.BLACK);
+			u.setMarca(Color.BLACK); // O(1)
 			// Y lo sacamos de la cola.
-			Q.deleteFirst();
+			Q.deleteFirst(); // O(1)
 		}
 	}
 	
