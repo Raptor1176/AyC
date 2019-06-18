@@ -264,9 +264,9 @@ public class Algoritmos {
 				this.visitarBF(Q);
 			}
 		}
-		System.out.println("Recorrido BFS completado correctamente.");
 		// Si la impresion de los arreglos padre y nivel estan habilitadas, imprimimos.
 		if(imprimirPadreyNivel) {
+			System.out.println("Recorrido BFS completado correctamente.");
 			System.out.print("Padre: [ ");
 			for(int i: this.padre) {
 				System.out.print(i + " ");
@@ -374,9 +374,9 @@ public class Algoritmos {
 			}
 			i++;
 		}
-		System.out.println("Algoritmo de Kruskal completado correctamente.");
 		// Si la impresion de los arreglos padre y nivel estan habilitadas, imprimimos.
 		if(imprimirArbolCubrimiento) {
+			System.out.println("Algoritmo de Kruskal completado correctamente.");
 			this.printKruskal();
 		}
 	}
@@ -405,9 +405,9 @@ public class Algoritmos {
 				count++;
 			}
 		}
-		System.out.println("Algoritmo de Kruskal completado correctamente.");
 		// Si la impresion de los arreglos padre y nivel estan habilitadas, imprimimos.
 		if(imprimirArbolCubrimiento) {
+			System.out.println("Algoritmo de Kruskal completado correctamente.");
 			this.printKruskal();
 		}
 	}
