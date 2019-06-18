@@ -10,8 +10,7 @@ import java.io.*;
 
 public class ConexionWebService{	
 	
-	
-	
+
 	public static Grafo getGrafo(int nodos, int arcos, boolean conexo) throws Exception {		
 		/* Esta parte esta sacada de: 
 		 * https://docs.oracle.com/javase/tutorial/networking/urls/readingWriting.html
@@ -28,7 +27,7 @@ public class ConexionWebService{
 		
 		in.close();
 				
-		//jsonString= "{\"nodos\": [0, 1, 2, 3, 4, 5], \"arcos\": [[[1, 0], 46], [[0, 4], 790], [[4, 2], 440], [[1, 5], 276], [[3, 0], 700], [[3, 5], 820], [[0, 2], 996]]}";
+		//jsonString= Constantes.jsons[3];
 		System.out.println("Tengo el grafo en formato JSON. Lo convierto...");
 		Gson gson = new GsonBuilder().create();
 		try{
@@ -42,4 +41,18 @@ public class ConexionWebService{
 		}			
 	}
 
+	public static Grafo GrafoConstante(int c){
+		Gson gson = new GsonBuilder().create();
+		try{							
+			Grafo.GrafoObj gr = gson.fromJson(Constantes.jsons[c], Grafo.GrafoObj.class);
+			Grafo g= new Grafo(gr);
+			
+			return g;
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return null;			
+	}
+	
+	
 }
