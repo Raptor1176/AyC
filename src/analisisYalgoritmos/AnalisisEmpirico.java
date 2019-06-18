@@ -7,46 +7,57 @@ public class AnalisisEmpirico{
 	private static Grafo grafo;
 	private static long start;
 	private static long elapsedTime;
-
-	private static int[] nodos= {100,100,100,100};
-	private static int[] arcos1= {99,1000,2500,4000};			
-	private static int[][] tiempo= new int[nodos.length][4];
+	
+	private static Algoritmos algoritmos;
+/*
+	private static int[] nodos= {400,400,400,400,400};
+	private static int[] arcos= {399,5000,15000,30000,50000};			
+	private static int[][] tiempo= {{0,0,0,0},{0,0,0,0},{0,0,0,0},{0,0,0,0},{0,0,0,0}};
+*/
+	private static int[] nodos= {400};
+	private static int[] arcos= {399};			
+	private static int[][] tiempo= {{0,0,0,0}};
 	
 	
 	public static void main(String[] args) throws IOException {		
 		try{			
-			
+		/*	
+			for(int i=0;i<nodos.length; i++){
+				nodos[i]=(i+1)*100;
+				arcos[i]=nodos[i]+10^(i);
+			}
+			*/
 			for(int t=0; t<10; t++){				
 				for(int i=0; i<nodos.length; i++) {
-					grafo = ConexionWebService.getGrafo(nodos[i],arcos1[i],true);
-					Algoritmos algoritmos = new Algoritmos(grafo);
+					grafo = ConexionWebService.getGrafo(nodos[i],arcos[i],true);
+					algoritmos = new Algoritmos(grafo);
 					
 					/*
 					System.out.println("Nodos: "+nodos[i]+" Arcos: "+ arcos1[i]);
-					start = System.nanoTime();    
-					elapsedTime = System.nanoTime() - start;
+					start = System.currentTimeMillis();    
+					elapsedTime = System.currentTimeMillis() - start;
 					//grafo.print();
 					System.out.println("recorrido bfs: "+ elapsedTime);					
 					 */
 					
-					start = System.nanoTime();    
-					algoritmos.arbolDeCubrimientoOCH();
-					elapsedTime = System.nanoTime() - start;
+					start = System.currentTimeMillis();    
+					algoritmos.arbolDeCubrimientoOSH();
+					elapsedTime = System.currentTimeMillis() - start;
 					tiempo[i][0]+= elapsedTime;					
 					
-					start = System.nanoTime();    
-					algoritmos.arbolDeCubrimientoOSH();
-					elapsedTime = System.nanoTime() - start;
+					start = System.currentTimeMillis();    
+					algoritmos.arbolDeCubrimientoOCH();
+					elapsedTime = System.currentTimeMillis() - start;
 					tiempo[i][1]+= elapsedTime;					
 					
-					start = System.nanoTime();
-					algoritmos.arbolDeCubrimientoHCH();
-					elapsedTime = System.nanoTime() - start;
+					start = System.currentTimeMillis();
+					algoritmos.arbolDeCubrimientoHSH();
+					elapsedTime = System.currentTimeMillis() - start;
 					tiempo[i][2]+= elapsedTime;					
 					
-					start = System.nanoTime();    
-					algoritmos.arbolDeCubrimientoHSH();
-					elapsedTime = System.nanoTime() - start;
+					start = System.currentTimeMillis();    
+					algoritmos.arbolDeCubrimientoHCH();
+					elapsedTime = System.currentTimeMillis() - start;
 					tiempo[i][3]+= elapsedTime;					
 					
 						
@@ -57,16 +68,16 @@ public class AnalisisEmpirico{
 			}
 			
 			for(int i=0; i<nodos.length; i++){
-				System.out.println("Nodos:"+ nodos[i]+" Arcos: "+arcos1[i]);
+				System.out.println("Nodos:"+ nodos[i]+" Arcos: "+arcos[i]);
 				
-				System.out.print("Ordenado CON heuristica: ");
-				System.out.println(tiempo[i][0]/10+" ");
 				System.out.print("Ordenado SIN heuristica: ");
-				System.out.println(tiempo[i][1]/10+" ");
-				System.out.print("Heap CON heuristica: ");
-				System.out.println(tiempo[i][2]/10+" ");
+				System.out.println(tiempo[i][0]/10);
+				System.out.print("Ordenado CON heuristica: ");
+				System.out.println(tiempo[i][1]/10);
 				System.out.print("Heap SIN heuristica: ");
-				System.out.println(tiempo[i][3]/10+" ");
+				System.out.println(tiempo[i][2]/10);
+				System.out.print("Heap CON heuristica: ");
+				System.out.println(tiempo[i][3]/10);
 				
 					
 				System.out.println();
@@ -74,9 +85,9 @@ public class AnalisisEmpirico{
 			
 			//grafo.print();
 			//System.out.println("Comienzo recorrido BFS");			
-			//long t1=System.nanoTime();
+			//long t1=System.currentTimeMillis();
 			//algoritmos.iniciarBFS(true);
-			//long t2=System.nanoTime();
+			//long t2=System.currentTimeMillis();
 			//System.out.println("Tiempo BFS: "+(t2-t1)+" ms");
 			
 			//System.out.println(algoritmos.conexoBFS());
@@ -109,11 +120,11 @@ public class AnalisisEmpirico{
 			
 			Grafo.GrafoObj gr = gson.fromJson(jsonString, Grafo.GrafoObj.class);
 			Grafo g= new Grafo(gr);
-			
+	
 			return g;
 		} catch (Exception e) {
 			throw new Exception(jsonString);
-		}			
+		}
 	}
 	*/
 	

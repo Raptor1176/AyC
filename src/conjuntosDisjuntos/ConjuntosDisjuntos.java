@@ -63,8 +63,12 @@ public class ConjuntosDisjuntos implements IConjuntosDisjuntos{
 		int index2= e2.getID();
 		
 		// Obtengo los elementos padres (representantes) de los elementos		
+		int padreE1= findSet(e1).getID();
+		int padreE2= findSet(e2).getID();
+		/*
 		int padreE1= this.padres[index1];
 		int padreE2= this.padres[index2];
+		*/
 		//System.out.println("Padre de "+index1 + " : " + padreE1);
 		//System.out.println("Padre de "+index2 + " : " + padreE2);
 		if(padreE1==padreE2) {
