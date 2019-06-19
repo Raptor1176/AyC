@@ -1,0 +1,47 @@
+Nodos: 5 Arcos: 4
+Ordenado CON heuristica: 2
+Ordenado SIN heuristica: 2
+Heap CON heuristica: 2
+Heap SIN heuristica: 2
+
+//--------------------------------------------------------------
+
+Nodos: 5 Arcos: 10
+Ordenado CON heuristica: 2
+Ordenado SIN heuristica: 2
+Heap CON heuristica: 2
+Heap SIN heuristica: 2
+
+//---------------------------------------------------------------
+
+Nodos: 500 Arcos: 499
+Ordenado CON heuristica: 5
+Ordenado SIN heuristica: 5
+Heap CON heuristica: 4
+Heap SIN heuristica: 5
+
+
+//---------------------------------------------------------------
+
+Nodos: 500 Arcos: 124750
+Ordenado CON heuristica: 215
+Ordenado SIN heuristica: 196
+Heap CON heuristica: 78
+Heap SIN heuristica: 78
+
+//---------------------------------------------------------------
+
+Nodos: 250 Arcos: 249
+Ordenado CON heuristica: 3
+Ordenado SIN heuristica: 3
+Heap CON heuristica: 4
+Heap SIN heuristica: 4
+
+//--------------------------------------------------------------
+
+Nodos: 250 Arcos: 31125
+Ordenado CON heuristica: 62
+Ordenado SIN heuristica: 65
+Heap CON heuristica: 38
+Heap SIN heuristica: 32
+

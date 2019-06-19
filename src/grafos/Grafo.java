@@ -19,9 +19,9 @@ public class Grafo {
 		// Inicializamos la lista de nodos del grafo.
 		this.nodos = new Nodo[nodosJson.length];
 		// Por cada elemento de la lista de nodos del Json, creamos un nodo para el grafo.
-		for(int i = 0; i < nodosJson.length; i++) {
-			Nodo nod = new Nodo(nodosJson[i]);
-			this.nodos[i] = nod;
+		for(int n : nodosJson) {
+			Nodo nod = new Nodo(n);
+			this.nodos[n] = nod;
 		}
 		// Obtenemos la lista de arcos del Json.
 		Object[][] arcosJson = grafoJson.arcos;		
