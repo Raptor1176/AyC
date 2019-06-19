@@ -18,13 +18,16 @@ public class Test {
 			}
 		}
 		
-		boolean usoH=false;
-		int cant=1000;
+		
+		int cant=3000;
+		boolean usoH=true;
 		//int uniones=15000;
 		int uniones=cant-1;
 		
+		boolean imprimirCD=false;
 		
-		ConjuntosDisjuntos conj=new ConjuntosDisjuntos(cant,usoH);		
+		
+		IConjuntosDisjuntos conj=new ConjuntosDisjuntos(cant,usoH);		
 		Random ran=new Random();
 		ElementoConjunto[] elems=new ElementoConjunto[cant];
 		ElementoConjunto e1,e2;
@@ -58,7 +61,7 @@ public class Test {
 				+ "\nUn solo conjunto? "+ conj.isOneSet()
 				+ "\nTiempo: "+ ((t2-t1)/1000) + " (nanos/1000)"
 				+ "\n");
-		System.out.println(conj.toString());
+		if (imprimirCD) System.out.println(conj.toString());
 	}
 
 }
