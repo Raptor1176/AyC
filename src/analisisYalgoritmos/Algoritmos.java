@@ -253,17 +253,17 @@ public class Algoritmos {
 	 * @param imprimirPadreyNivel Booleano que determina si se imprimen los arreglos padre y nivel al finalizar el recorrido.
 	 */
 	private void BFS(boolean imprimirPadreyNivel) {
-		Nodo[] nodosGrafo = this.grafo.getNodos();
+		Nodo[] nodosGrafo = this.grafo.getNodos(); // O(1)
 		// Marcamos los nodos del grafo como blancos.
 		for(int i = 0; i < this.cantidadNodos; i++) { // O(N) , N = cantidad nodos
-			Nodo n = nodosGrafo[i];
+			Nodo n = nodosGrafo[i]; // O(1)
 			n.setMarca(Color.WHITE); // O(1)
 		}
 		// Creamos una cola para manejar los nodos.
 		Cola<INodo> Q = new Cola<INodo>(); // O(1)
 		// Por cada nodo en la lista de nodos...
 		for(int i = 0; i < this.cantidadNodos; i++) { // O(N) , N = cantidad nodos
-			Nodo n = nodosGrafo[i];
+			Nodo n = nodosGrafo[i]; // O(1)
 			// Si es un nodo blanco...
 			if(n.getMarca().equals(Color.WHITE)) { // O(1)
 				// Lo marcamos en gris.
@@ -271,7 +271,7 @@ public class Algoritmos {
 				// Lo agregamos a la cola.
 				Q.addLast(n); // O(1)
 				// Y comenzamos el proceso de visitar.
-				this.visitarBF(Q);
+				this.visitarBF(Q); // O( N * A) , N = cantidad nodos , A = cantidad de arcos
 			}
 		}
 		// Si la impresion de los arreglos padre y nivel estan habilitadas, imprimimos.
@@ -296,7 +296,7 @@ public class Algoritmos {
 	 */
 	private void visitarBF(Cola<INodo> Q) {
 		// Mientras la cola no este vacia...
-		while(!Q.vacia()) { // O(A) , A = cantidad de arcos.
+		while(!Q.vacia()) { // O(N) , N = cantidad de nodos.
 			// Obtenemos el nodo del tope.
 			INodo u = Q.tope(); // O(1)
 			// Obtenemos la lista de arcos de ese nodo.
