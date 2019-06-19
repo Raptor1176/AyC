@@ -39,7 +39,7 @@ public class Algoritmos {
 	 */
 	public boolean conexoBFS() {
 		// Hacemos un recorrido BFS.
-		this.iniciarBFS(false); // O()
+		this.iniciarBFS(false); // O(N * N * A) , N = cantidad nodos , A = cantidad de arcos
 		// Recorremos el arreglo padre y si detectamos mas de un -1 es que hay mas de un arbol
 		// en la foresta, por lo tanto el grafo no es conexo.
 		for(int i = 1; i < this.padre.length; i++) { // O(n)
@@ -54,51 +54,50 @@ public class Algoritmos {
 	
 	/**
 	 * Metodo utilizado para calcular si un grafo es conexo utilizando conjuntos disjuntos.
-	 * @return ****************************COMPLETAR CUANDO ESTE TERMINADO*****************
+	 * @return TRUE si el conjunto tiene un solo arbol al terminar, FALSE en caso contrario.
 	 */
 	public boolean conexoDisjointSet() {
 		// Inicializamos la lista de arcos.
-		this.listaArcos = new Lista<IArco>();//c
+		this.listaArcos = new Lista<IArco>(); // O(1)
 		// Obtenemos la cantidad de nodos del grafo.
-		Nodo[] nodosGrafo = this.grafo.getNodos();
-		this.cantidadNodos = nodosGrafo.length;//c
+		Nodo[] nodosGrafo = this.grafo.getNodos(); // O(1)
+		this.cantidadNodos = nodosGrafo.length; // O(1)
 		// Inicializamos el conjunto disjunto.
-		this.conjuntoDisjunto = new ConjuntosDisjuntos(cantidadNodos, false);//c
+		this.conjuntoDisjunto = new ConjuntosDisjuntos(cantidadNodos, false); // O(1)
 		// Para cada nodo del grafo...
-		for(int i = 0; i < this.cantidadNodos; i++){// cant nodos
-			Nodo n = nodosGrafo[i];
+		for(int i = 0; i < this.cantidadNodos; i++){ // O(N) , N =  cantidad de nodos
+			Nodo n = nodosGrafo[i]; // O(1)
 			// Creamos un conjunto con ese nodo.
-			this.conjuntoDisjunto.makeSet(n);// c
-			n.getArcos().start();
+			this.conjuntoDisjunto.makeSet(n); // O(1)
+			n.getArcos().start(); // O(1)
 			// Para cada arco de ese nodo...
-			while(n.getArcos().hasNext()) { //cant arcos
-				IArco arc = n.getArcos().next();
+			while(n.getArcos().hasNext()) { // O(A) , A = cantidad de arcos
+				IArco arc = n.getArcos().next(); // O(1)
 				// Si no esta marcado...
-				if(arc.getMarca() == 0) {
+				if(arc.getMarca() == 0) { // O(1)
 					// Lo agregamos a la lista de arcos.
-					this.listaArcos.add(arc);
+					this.listaArcos.add(arc); // O(1)
 					// Y lo marcamos.
-					arc.setMarca(1);
+					arc.setMarca(1); // O(1)
 				}
 				else {
 					// Si esta marcado, lo desmarcamos.
-					arc.setMarca(0);
+					arc.setMarca(0); // O(1)
 				}
 			}
 		}
-		this.listaArcos.start();
+		this.listaArcos.start(); // O(1)
 		// Para cada arco en la lista de arcos...
-		while(this.listaArcos.hasNext()) {// cant arcos
-			IArco arc = this.listaArcos.next();
+		while(this.listaArcos.hasNext()) { // O(A) , A = cantidad de arcos
+			IArco arc = this.listaArcos.next(); // O(1)
 			// Obtenemos los nodos que conecta ese arco...
-			ElementoConjunto conjNodoIzq = arc.getNodoIzquierdo();
-			ElementoConjunto conjNodoDer = arc.getNodoDerecho();
+			ElementoConjunto conjNodoIzq = arc.getNodoIzquierdo(); // O(1)
+			ElementoConjunto conjNodoDer = arc.getNodoDerecho(); // O(1)
 			// Y los unimos en un mismo conjunto.
-			this.conjuntoDisjunto.union(conjNodoIzq, conjNodoDer);
+			this.conjuntoDisjunto.union(conjNodoIzq, conjNodoDer); // O()
 		}
 		// Al finalizar preguntamos si el conjunto que nos quedo es un unico conjunto.
-		System.out.println(this.conjuntoDisjunto.toString());
-		return this.conjuntoDisjunto.isOneSet();
+		return this.conjuntoDisjunto.isOneSet(); // O()
 	}
 	
 	/**
@@ -107,8 +106,8 @@ public class Algoritmos {
 	 * @return Lista de arcos que representan el arbol de cubrimiento para el grafo.
 	 */
 	public Lista<IArco> arbolDeCubrimientoOCH(){
-		this.iniciarKruskalOrdenado(true, false);
-		return this.arbolCubrimiento;
+		this.iniciarKruskalOrdenado(true, false); // O()
+		return this.arbolCubrimiento; // O(1)
 	}
 	
 	/**
@@ -117,8 +116,8 @@ public class Algoritmos {
 	 * @return Lista de arcos que representan el arbol de cubrimiento para el grafo.
 	 */
 	public Lista<IArco> arbolDeCubrimientoOSH(){
-		this.iniciarKruskalOrdenado(false, false);
-		return this.arbolCubrimiento;
+		this.iniciarKruskalOrdenado(false, false); // O()
+		return this.arbolCubrimiento; // O(1)
 	}
 	
 	/**
@@ -127,8 +126,8 @@ public class Algoritmos {
 	 * @return Lista de arcos que representan el arbol de cubrimiento para el grafo.
 	 */
 	public Lista<IArco> arbolDeCubrimientoHCH(){
-		this.iniciarKruskalHeap(true, false);
-		return this.arbolCubrimiento;
+		this.iniciarKruskalHeap(true, false); // O()
+		return this.arbolCubrimiento; // O(1)
 	}
 	
 	/**
@@ -137,8 +136,8 @@ public class Algoritmos {
 	 * @return Lista de arcos que representan el arbol de cubrimiento para el grafo.
 	 */
 	public Lista<IArco> arbolDeCubrimientoHSH(){
-		this.iniciarKruskalHeap(false, false);
-		return this.arbolCubrimiento;
+		this.iniciarKruskalHeap(false, false); // O()
+		return this.arbolCubrimiento; // O(1)
 	}
 	
 	/**
@@ -156,7 +155,7 @@ public class Algoritmos {
 		// Creamos el arreglo nivel.
 		this.nivel = new int[this.grafo.getNodos().length]; // O(1)
 		// Iniciamos el recorrido BFS.
-		this.BFS(imprimirPadreyNivel); // O()
+		this.BFS(imprimirPadreyNivel); // O(N * N * A) , N = cantidad nodos , A = cantidad de arcos
 	}
 	
 	/**
@@ -167,40 +166,40 @@ public class Algoritmos {
 	 */
 	public void iniciarKruskalOrdenado (boolean conHeuristica, boolean imprimirArbolCubrimiento) {
 		// Inicializamos la lista de arcos.
-		this.listaArcos = new Lista<IArco>();
+		this.listaArcos = new Lista<IArco>(); // O(1)
 		// Obtenemos la cantidad de nodos del grafo.
-		Nodo[] nodosGrafo = this.grafo.getNodos();
-		this.cantidadNodos = nodosGrafo.length;
+		Nodo[] nodosGrafo = this.grafo.getNodos(); // O(1)
+		this.cantidadNodos = nodosGrafo.length; // O(1)
 		// Inicializamos la estructura conjuntos disjuntos.
-		this.conjuntoDisjunto = new ConjuntosDisjuntos(cantidadNodos, conHeuristica);
+		this.conjuntoDisjunto = new ConjuntosDisjuntos(cantidadNodos, conHeuristica); // O(1)
 		// Para cada nodo del grafo...
-		for(int i = 0; i < this.cantidadNodos; i++){// cant nodos
-			Nodo n = nodosGrafo[i];
+		for(int i = 0; i < this.cantidadNodos; i++){ // O(N) , N = cantidad de nodos
+			Nodo n = nodosGrafo[i]; // O(1)
 			// Creamos un conjunto para cada uno.
-			this.conjuntoDisjunto.makeSet(n);
-			n.getArcos().start();
+			this.conjuntoDisjunto.makeSet(n); // O(1)
+			n.getArcos().start(); // O(1)
 			// Para cada arco del nodo...
-			while(n.getArcos().hasNext()) {// Cantidad de arcos
-				IArco arc = n.getArcos().next();
+			while(n.getArcos().hasNext()) { // O(A) , A = cantidad de arcos
+				IArco arc = n.getArcos().next(); // O(1)
 				// Si no esta marcado...
-				if(arc.getMarca() == 0) {
+				if(arc.getMarca() == 0) { // O(1)
 					// Lo agregamos a la lista de arcos.
-					this.listaArcos.add(arc);
+					this.listaArcos.add(arc); // O(1)
 					// Y lo marcamos.
-					arc.setMarca(1);
+					arc.setMarca(1); // O(1)
 				}
 				else {
 					// Si esta marcado, lo desmarcamos.
-					arc.setMarca(0);
+					arc.setMarca(0); // O(1)
 				}
 			}
 		}
 		// Inicializamos la lista que contendra el arbol de cubrimiento.
-		this.arbolCubrimiento = new Lista<IArco>();
+		this.arbolCubrimiento = new Lista<IArco>(); // O(1)
 		// Ejecutamos un heapsort para ordenar la lista de arcos.
-		this.HeapSort(); //n log n
+		this.HeapSort(); // O(n (log n))
 		// Iniciamos el algoritmo de Kruskal.
-		this.KruskalOrdenado(imprimirArbolCubrimiento);
+		this.KruskalOrdenado(imprimirArbolCubrimiento); // O()
 	}
 	
 	/**
@@ -211,23 +210,23 @@ public class Algoritmos {
 	 */
 	public void iniciarKruskalHeap (boolean conHeuristica, boolean imprimirArbolCubrimiento) {
 		// Inicializamos la lista de arcos.
-		this.listaArcos = new Lista<IArco>();
+		this.listaArcos = new Lista<IArco>(); // O(1)
 		// Obtenemos la cantidad de nodos del grafo.
-		Nodo[] nodosGrafo = this.grafo.getNodos();
-		this.cantidadNodos = nodosGrafo.length;
+		Nodo[] nodosGrafo = this.grafo.getNodos(); // O(1)
+		this.cantidadNodos = nodosGrafo.length; // O(1)
 		// Inicializamos la estructura conjuntos disjuntos.
-		this.conjuntoDisjunto = new ConjuntosDisjuntos(cantidadNodos, conHeuristica);
+		this.conjuntoDisjunto = new ConjuntosDisjuntos(cantidadNodos, conHeuristica); // O(1)
 		// Inicializamos el heap que contendra los arcos.
-		this.heapArcos = new Heap(this.grafo.getCantidadArcos());
+		this.heapArcos = new Heap(this.grafo.getCantidadArcos()); // O(1)
 		// Para cada nodo del grafo...
-		for(int i = 0; i < this.cantidadNodos; i++){// cant nodos
-			Nodo n = nodosGrafo[i];
+		for(int i = 0; i < this.cantidadNodos; i++){ // O(N) , N = cantidad de nodos.
+			Nodo n = nodosGrafo[i]; // O(1)
 			// Creamos un conjunto para cada uno.
-			this.conjuntoDisjunto.makeSet(n);
-			n.getArcos().start();
+			this.conjuntoDisjunto.makeSet(n); // O(1)
+			n.getArcos().start(); // O(1)
 			// Para cada arco de ese nodo...
-			while(n.getArcos().hasNext()) {// cant arcos
-				IArco arc = n.getArcos().next();
+			while(n.getArcos().hasNext()) { // O(A) , A = cantidad de arcos
+				IArco arc = n.getArcos().next(); // O(1)
 				// Si no esta marcado...
 				if(arc.getMarca() == 0) {
 					// Lo agregamos al heap de arcos.
@@ -253,17 +252,19 @@ public class Algoritmos {
 	 * @param imprimirPadreyNivel Booleano que determina si se imprimen los arreglos padre y nivel al finalizar el recorrido.
 	 */
 	private void BFS(boolean imprimirPadreyNivel) {
-		Nodo[] nodosGrafo = this.grafo.getNodos();
+		Nodo[] nodosGrafo = this.grafo.getNodos(); // O(1)
+		// Obtenemos la cantidad de nodos del grafo.
+		this.cantidadNodos = nodosGrafo.length; // O(1)
 		// Marcamos los nodos del grafo como blancos.
 		for(int i = 0; i < this.cantidadNodos; i++) { // O(N) , N = cantidad nodos
-			Nodo n = nodosGrafo[i];
+			Nodo n = nodosGrafo[i]; // O(1)
 			n.setMarca(Color.WHITE); // O(1)
 		}
 		// Creamos una cola para manejar los nodos.
 		Cola<INodo> Q = new Cola<INodo>(); // O(1)
 		// Por cada nodo en la lista de nodos...
 		for(int i = 0; i < this.cantidadNodos; i++) { // O(N) , N = cantidad nodos
-			Nodo n = nodosGrafo[i];
+			Nodo n = nodosGrafo[i]; // O(1)
 			// Si es un nodo blanco...
 			if(n.getMarca().equals(Color.WHITE)) { // O(1)
 				// Lo marcamos en gris.
@@ -271,7 +272,7 @@ public class Algoritmos {
 				// Lo agregamos a la cola.
 				Q.addLast(n); // O(1)
 				// Y comenzamos el proceso de visitar.
-				this.visitarBF(Q);
+				this.visitarBF(Q); // O( N * A) , N = cantidad nodos , A = cantidad de arcos
 			}
 		}
 		// Si la impresion de los arreglos padre y nivel estan habilitadas, imprimimos.
@@ -296,7 +297,7 @@ public class Algoritmos {
 	 */
 	private void visitarBF(Cola<INodo> Q) {
 		// Mientras la cola no este vacia...
-		while(!Q.vacia()) { // O(A) , A = cantidad de arcos.
+		while(!Q.vacia()) { // O(N) , N = cantidad de nodos.
 			// Obtenemos el nodo del tope.
 			INodo u = Q.tope(); // O(1)
 			// Obtenemos la lista de arcos de ese nodo.
@@ -434,4 +435,3 @@ public class Algoritmos {
 		System.out.println();
 	}
 }
-
