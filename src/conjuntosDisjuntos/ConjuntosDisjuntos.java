@@ -20,11 +20,12 @@ public class ConjuntosDisjuntos implements IConjuntosDisjuntos{
 	
 	
 	
-	public void makeSet(ElementoConjunto elem) {		
-		int index=elem.getID();
-		this.elementos[index]=elem;
-		this.padres[index]=index;
-		this.rangos[index]=0;
+	public void makeSet(ElementoConjunto elem) {
+		// Creo un conjunto con elem como unico elemento
+		int index=elem.getID(); // Obtengo el id que es el indice de todos los arreglos
+		this.elementos[index]=elem; // Guardo elem en el arreglo de elementos
+		this.padres[index]=index; // Seteo su padre a si mismo
+		this.rangos[index]=0; // Seteo su rango en 0
 	}
 	
 	public ElementoConjunto findSet(ElementoConjunto elem) {
@@ -55,20 +56,60 @@ public class ConjuntosDisjuntos implements IConjuntosDisjuntos{
 			// Retorno el elemento representante
 			return representante;
 		}
-	}	
+	}
 	
-	public void union(ElementoConjunto e1, ElementoConjunto e2) {
-		// Obtengo los indices de los elementos
-		int index1= e1.getID();
-		int index2= e2.getID();
+	private void link(ElementoConjunto p1, ElementoConjunto p2) {
+		// Tomo el indice de los arreglos (que es el id de cada elemento)
+		int padreE1= p1.getID(); 
+		int padreE2= p2.getID();	
+		if (padreE1!=padreE2) {			
+			// Si los padres son distintos ( no estan en el mismo conjunto )	
+			
+			if(heuristicas) {
+				// Si estoy usando heuristicas
+				
+				// Si el rango de padreE1 es menor que el rango de padreE2
+				if (rangos[padreE1] > rangos[padreE2]) {
+					// Entonces muevo al conjunto que contiene a e1 
+		        	// debajo del conjunto que contiene e2
+					padres[padreE2] = padreE1;
+				}
+				// Sino, si el rango de padreE2 es menor que el de padreE1
+				else if (rangos[padreE1] < rangos[padreE2]) {
+					// Entonces muevo al conjunto que contiene a e2 
+		        	// debajo del conjunto que contiene e1
+					padres[padreE1] = padreE2;
+				}
+				else {
+					// Si los rangos son iguales entonces
+		        	// muevo uno conjunto debajo de otro, no importa cual
+		            padres[padreE2] = padreE1; 
+		  
+		            // Luego incremento el rango al cual le puse al otro conjunto debajo
+		            rangos[padreE1] = rangos[padreE1] + 1; 
+				}
+				
+			}
+			else {
+				// Si no estoy usando heuristicas
+				
+				// Muevo un conjunto debajo de otro, sin importarme el rango
+				padres[padreE2]=padreE1;
+			}			
+		}
+	}
+	
+	
+	public void union(ElementoConjunto e1, ElementoConjunto e2) {		
 		
+		link(findSet(e1),findSet(e2));
+		
+	}
+		/*		
 		// Obtengo los elementos padres (representantes) de los elementos		
 		int padreE1= findSet(e1).getID();
 		int padreE2= findSet(e2).getID();
-		/*
-		int padreE1= this.padres[index1];
-		int padreE2= this.padres[index2];
-		*/
+
 		//System.out.println("Padre de "+index1 + " : " + padreE1);
 		//System.out.println("Padre de "+index2 + " : " + padreE2);
 		if(padreE1==padreE2) {
@@ -80,7 +121,7 @@ public class ConjuntosDisjuntos implements IConjuntosDisjuntos{
 			if (this.heuristicas) {				
 				/*
 				 * Heuristica de union por rangos
-				 */
+				 *
 			
 				// Si el rango de e1 es menor que el rango de e2
 		        if (this.rangos[padreE1] < this.rangos[padreE2]) {	  
@@ -106,14 +147,14 @@ public class ConjuntosDisjuntos implements IConjuntosDisjuntos{
 			else {
 				/*
 				 * Sin heuristicas
-				 */
+				 *
 				
 				// Sino, seteo como padre de e2 al padre de e1
 				this.padres[index2]=this.padres[index1];
 			}
 			
 		}
-	}
+	}*/
 	
 	/************************************************
 	 * Solo para testing
@@ -152,15 +193,6 @@ public class ConjuntosDisjuntos implements IConjuntosDisjuntos{
 	}
 	
 	/******************************************/
-	private int getRaiz(int i) {
-		System.out.println("getRaiz(i): "+i);
-		if (this.padres[i]==i) {
-			return i;
-		}
-		else {
-			return getRaiz(this.padres[i]);
-		}
-	}
 	
 	public boolean isOneSet() {
 		boolean primeraRaiz=false;
