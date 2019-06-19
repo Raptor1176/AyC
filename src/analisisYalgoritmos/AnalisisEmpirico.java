@@ -9,7 +9,9 @@ public class AnalisisEmpirico{
 		Ordenado_Con_Heuristica,
 		Ordenado_Sin_Heuristica,
 		Heap_Con_Heuristica,
-		Heap_Sin_Heuristica		
+		Heap_Sin_Heuristica,
+		Conexo_Disjoint,
+		Conexo_BFS
 	}
 	
 	private static Grafo grafo;
@@ -31,47 +33,67 @@ public class AnalisisEmpirico{
 	public static void main(String[] args) throws IOException {		
 		try{
 			
-			int caso=3;			
-			System.out.println("Nodos: "+Constantes.nodos[caso]+" Arcos: "+Constantes.arcos[caso]);
+			int caso=0;			
+			//System.out.println("Nodos: "+Constantes.nodos[caso]+" Arcos: "+Constantes.arcos[caso]);
 			grafo = ConexionWebService.GrafoConstante(caso);
+			//grafo = ConexionWebService.getGrafo(100, 99, true);
 			algoritmos = new Algoritmos(grafo);			
+			Casos test;
+			//test=Casos.Ordenado_Con_Heuristica;
+			//test=Casos.Ordenado_Sin_Heuristica;
+			//test=Casos.Heap_Con_Heuristica;
+			//test=Casos.Heap_Sin_Heuristica;
+			test= Casos.Conexo_Disjoint;
 			
-			//Casos test=Casos.Ordenado_Con_Heuristica;
-			Casos test=Casos.Ordenado_Sin_Heuristica;
-			//Casos test=Casos.Heap_Con_Heuristica;
-			//Casos test=Casos.Heap_Sin_Heuristica;
 
+			if(test==Casos.Conexo_BFS){
+				start = System.nanoTime();  
+				boolean res= algoritmos.conexoBFS();
+				elapsedTime = System.nanoTime() - start;
+				System.out.println("Conexo BFS: "+res);
+				System.out.println(elapsedTime/1000);
+			}
+			
+
+			if(test==Casos.Conexo_Disjoint){
+				start = System.nanoTime();  
+				boolean res= algoritmos.conexoDisjointSet();
+				elapsedTime = System.nanoTime() - start;
+				System.out.println("Conexo DS: "+res);
+				System.out.println(elapsedTime/1000);
+			}
+			
 			
 			if(test==Casos.Ordenado_Con_Heuristica){
-				start = System.currentTimeMillis();  
+				start = System.nanoTime();  
 				algoritmos.arbolDeCubrimientoOCH();
-				elapsedTime = System.currentTimeMillis() - start;
+				elapsedTime = System.nanoTime() - start;
 				System.out.print("Ordenado CON heuristica: ");
-				System.out.println(elapsedTime);
+				System.out.println(elapsedTime/1000);
 			}
 
 			if(test==Casos.Ordenado_Sin_Heuristica){
-				start = System.currentTimeMillis();  
+				start = System.nanoTime();  
 				algoritmos.arbolDeCubrimientoOSH();
-				elapsedTime = System.currentTimeMillis() - start;
+				elapsedTime = System.nanoTime() - start;
 				System.out.print("Ordenado SIN heuristica: ");
-				System.out.println(elapsedTime);
+				System.out.println(elapsedTime/1000);
 			}
 			
 			if(test==Casos.Heap_Con_Heuristica){
-				start = System.currentTimeMillis();  
+				start = System.nanoTime();  
 				algoritmos.arbolDeCubrimientoHCH();
-				elapsedTime = System.currentTimeMillis() - start;
+				elapsedTime = System.nanoTime() - start;
 				System.out.print("Heap CON heuristica: ");
-				System.out.println(elapsedTime);
+				System.out.println(elapsedTime/1000);
 			}
 			
 			if(test==Casos.Heap_Sin_Heuristica){
-				start = System.currentTimeMillis();  
+				start = System.nanoTime();  
 				algoritmos.arbolDeCubrimientoHSH();
-				elapsedTime = System.currentTimeMillis() - start;
+				elapsedTime = System.nanoTime() - start;
 				System.out.print("Heap SIN heuristica: ");
-				System.out.println(elapsedTime);
+				System.out.println(elapsedTime/1000);
 			}		
 			
 		} catch (Exception e) {

@@ -97,7 +97,7 @@ public class Algoritmos {
 			this.conjuntoDisjunto.union(conjNodoIzq, conjNodoDer);
 		}
 		// Al finalizar preguntamos si el conjunto que nos quedo es un unico conjunto.
-		System.out.println(this.conjuntoDisjunto.toString());
+		
 		return this.conjuntoDisjunto.isOneSet();
 	}
 	

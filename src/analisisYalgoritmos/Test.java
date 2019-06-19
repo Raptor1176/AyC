@@ -19,7 +19,7 @@ public class Test {
 		}
 		
 		
-		int cant=3000;
+		int cant=500;
 		boolean usoH=true;
 		//int uniones=15000;
 		int uniones=cant-1;
