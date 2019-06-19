@@ -60,11 +60,13 @@ public class Algoritmos {
 		// Inicializamos la lista de arcos.
 		this.listaArcos = new Lista<IArco>();//c
 		// Obtenemos la cantidad de nodos del grafo.
-		this.cantidadNodos = this.grafo.getNodos().length;//c
+		Nodo[] nodosGrafo = this.grafo.getNodos();
+		this.cantidadNodos = nodosGrafo.length;//c
 		// Inicializamos el conjunto disjunto.
 		this.conjuntoDisjunto = new ConjuntosDisjuntos(cantidadNodos, false);//c
 		// Para cada nodo del grafo...
-		for(Nodo n : this.grafo.getNodos()){// cant nodos
+		for(int i = 0; i < this.cantidadNodos; i++){// cant nodos
+			Nodo n = nodosGrafo[i];
 			// Creamos un conjunto con ese nodo.
 			this.conjuntoDisjunto.makeSet(n);// c
 			n.getArcos().start();
@@ -148,7 +150,7 @@ public class Algoritmos {
 		// Creamos el arreglo padres.
 		this.padre = new int[this.grafo.getNodos().length]; // O(1)
 		// Inicializamos los elementos del arreglo padre en -1 para identiicar las raices de la foresta del recorrido.
-		for(int i=0; i < this.padre.length; i++) { // O(n)
+		for(int i = 0; i < this.padre.length; i++) { // O(n)
 			this.padre[i] = -1; // O(1)
 		}
 		// Creamos el arreglo nivel.
@@ -167,11 +169,13 @@ public class Algoritmos {
 		// Inicializamos la lista de arcos.
 		this.listaArcos = new Lista<IArco>();
 		// Obtenemos la cantidad de nodos del grafo.
-		this.cantidadNodos = this.grafo.getNodos().length;
+		Nodo[] nodosGrafo = this.grafo.getNodos();
+		this.cantidadNodos = nodosGrafo.length;
 		// Inicializamos la estructura conjuntos disjuntos.
 		this.conjuntoDisjunto = new ConjuntosDisjuntos(cantidadNodos, conHeuristica);
 		// Para cada nodo del grafo...
-		for(Nodo n : this.grafo.getNodos()){// cantidad de nodos
+		for(int i = 0; i < this.cantidadNodos; i++){// cant nodos
+			Nodo n = nodosGrafo[i];
 			// Creamos un conjunto para cada uno.
 			this.conjuntoDisjunto.makeSet(n);
 			n.getArcos().start();
@@ -209,13 +213,15 @@ public class Algoritmos {
 		// Inicializamos la lista de arcos.
 		this.listaArcos = new Lista<IArco>();
 		// Obtenemos la cantidad de nodos del grafo.
-		this.cantidadNodos = this.grafo.getNodos().length;
+		Nodo[] nodosGrafo = this.grafo.getNodos();
+		this.cantidadNodos = nodosGrafo.length;
 		// Inicializamos la estructura conjuntos disjuntos.
 		this.conjuntoDisjunto = new ConjuntosDisjuntos(cantidadNodos, conHeuristica);
 		// Inicializamos el heap que contendra los arcos.
 		this.heapArcos = new Heap(this.grafo.getCantidadArcos());
 		// Para cada nodo del grafo...
-		for(Nodo n: this.grafo.getNodos()){//cant nodos
+		for(int i = 0; i < this.cantidadNodos; i++){// cant nodos
+			Nodo n = nodosGrafo[i];
 			// Creamos un conjunto para cada uno.
 			this.conjuntoDisjunto.makeSet(n);
 			n.getArcos().start();
@@ -247,14 +253,17 @@ public class Algoritmos {
 	 * @param imprimirPadreyNivel Booleano que determina si se imprimen los arreglos padre y nivel al finalizar el recorrido.
 	 */
 	private void BFS(boolean imprimirPadreyNivel) {
+		Nodo[] nodosGrafo = this.grafo.getNodos();
 		// Marcamos los nodos del grafo como blancos.
-		for(Nodo n : this.grafo.getNodos()) { // O(N) , N = cantidad nodos
+		for(int i = 0; i < this.cantidadNodos; i++) { // O(N) , N = cantidad nodos
+			Nodo n = nodosGrafo[i];
 			n.setMarca(Color.WHITE); // O(1)
 		}
 		// Creamos una cola para manejar los nodos.
 		Cola<INodo> Q = new Cola<INodo>(); // O(1)
 		// Por cada nodo en la lista de nodos...
-		for(Nodo n : this.grafo.getNodos()) { // O(N) , N = cantidad nodos
+		for(int i = 0; i < this.cantidadNodos; i++) { // O(N) , N = cantidad nodos
+			Nodo n = nodosGrafo[i];
 			// Si es un nodo blanco...
 			if(n.getMarca().equals(Color.WHITE)) { // O(1)
 				// Lo marcamos en gris.
@@ -269,13 +278,13 @@ public class Algoritmos {
 		if(imprimirPadreyNivel) {
 			System.out.println("Recorrido BFS completado correctamente.");
 			System.out.print("Padre: [ ");
-			for(int i: this.padre) {
-				System.out.print(i + " ");
+			for(int i = 0; i < this.padre.length; i++) {
+				System.out.print(this.padre[i] + " ");
 			}
 			System.out.println("]");
 			System.out.print("Nivel: [ ");
-			for(int i: this.nivel) {
-				System.out.print(i + " ");
+			for(int i = 0; i < this.nivel.length; i++) {
+				System.out.print(this.nivel[i] + " ");
 			}
 			System.out.println("]");
 		}

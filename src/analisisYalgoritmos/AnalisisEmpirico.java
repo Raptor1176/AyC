@@ -36,8 +36,8 @@ public class AnalisisEmpirico{
 			grafo = ConexionWebService.GrafoConstante(caso);
 			algoritmos = new Algoritmos(grafo);			
 			
-			//Casos test=Casos.Ordenado_Con_Heuristica;
-			Casos test=Casos.Ordenado_Sin_Heuristica;
+			Casos test=Casos.Ordenado_Con_Heuristica;
+			//Casos test=Casos.Ordenado_Sin_Heuristica;
 			//Casos test=Casos.Heap_Con_Heuristica;
 			//Casos test=Casos.Heap_Sin_Heuristica;
 
