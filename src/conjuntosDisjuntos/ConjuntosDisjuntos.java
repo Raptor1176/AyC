@@ -95,6 +95,7 @@ public class ConjuntosDisjuntos implements IConjuntosDisjuntos{
 				
 				// Muevo un conjunto debajo de otro, sin importarme el rango
 				padres[padreE2]=padreE1;
+				rangos[padreE2]++;
 			}			
 		}
 	}
