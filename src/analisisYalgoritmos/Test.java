@@ -18,13 +18,16 @@ public class Test {
 			}
 		}
 		
-		int cant=5000;
-		int uniones=80000;
 		boolean usoH=false;
+		int cant=1000;
+		//int uniones=15000;
+		int uniones=cant-1;
+		
 		
 		ConjuntosDisjuntos conj=new ConjuntosDisjuntos(cant,usoH);		
 		Random ran=new Random();
 		ElementoConjunto[] elems=new ElementoConjunto[cant];
+		ElementoConjunto e1,e2;
 		
 		// Creo los elementos de test
 		for (int i=0; i<cant;i++) {
@@ -39,8 +42,12 @@ public class Test {
 			// Hago los make set
 		}		
 		for(int i=0;i<uniones;i++) {
-			// Hago algunas uniones
-			conj.union(elems[ran.nextInt(cant)],elems[ran.nextInt(cant)]);
+			// Hago algunas uniones (simulo kruskal)
+			e1=conj.findSet(elems[ran.nextInt(cant)]);
+			e2=conj.findSet(elems[ran.nextInt(cant)]);
+			if(e1.getID()!=e2.getID()) {
+				conj.union(e1,e2);
+			}
 		}
 		
 		long t2=System.nanoTime();
@@ -51,7 +58,7 @@ public class Test {
 				+ "\nUn solo conjunto? "+ conj.isOneSet()
 				+ "\nTiempo: "+ ((t2-t1)/1000) + " (nanos/1000)"
 				+ "\n");
-		//System.out.println(conj.toString());
+		System.out.println(conj.toString());
 	}
 
 }
