@@ -35,15 +35,15 @@ public class AnalisisEmpirico{
 			
 			int caso=0;			
 			//System.out.println("Nodos: "+Constantes.nodos[caso]+" Arcos: "+Constantes.arcos[caso]);
-			grafo = ConexionWebService.GrafoConstante(caso);
-			//grafo = ConexionWebService.getGrafo(100, 99, true);
+			//grafo = ConexionWebService.GrafoConstante(caso);
+			grafo = ConexionWebService.getGrafo(100, 99, true);
 			algoritmos = new Algoritmos(grafo);			
 			Casos test;
 			//test=Casos.Ordenado_Con_Heuristica;
 			//test=Casos.Ordenado_Sin_Heuristica;
 			//test=Casos.Heap_Con_Heuristica;
 			//test=Casos.Heap_Sin_Heuristica;
-			test= Casos.Conexo_Disjoint;
+			test= Casos.Conexo_BFS;
 			
 
 			if(test==Casos.Conexo_BFS){
