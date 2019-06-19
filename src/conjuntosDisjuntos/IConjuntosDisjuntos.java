@@ -20,6 +20,12 @@ public interface IConjuntosDisjuntos {
 	 * @param ElementoConjunto e: El elemento a buscarle su representante
 	 * @return ElementoConjuto que representa al elemento e 
 	 */
-	public ElementoConjunto findSet(ElementoConjunto e);	
+	public ElementoConjunto findSet(ElementoConjunto e);
+	
+	/**
+	 * @return Retorna true si todos los elementos se encuentran en el mismo conjunto
+	 * talse en caso contrario
+	 */
+	public boolean isOneSet();
 	
 }
