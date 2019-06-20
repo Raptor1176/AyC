@@ -197,7 +197,7 @@ public class Algoritmos {
 		// Inicializamos la lista que contendra el arbol de cubrimiento.
 		this.arbolCubrimiento = new Lista<IArco>(); // O(1)
 		// Ejecutamos un heapsort para ordenar la lista de arcos.
-		this.HeapSort(); // O(n (log n))
+		this.HeapSort(); // O(A log A)
 		// Iniciamos el algoritmo de Kruskal.
 		this.KruskalOrdenado(imprimirArbolCubrimiento); // O()
 	}
