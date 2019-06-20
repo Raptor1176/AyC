@@ -19,8 +19,8 @@ public class Test {
 		}
 		
 		
-		int cant=500;
-		boolean usoH=true;
+		int cant=1000;
+		boolean usoH=false;
 		//int uniones=15000;
 		int uniones=cant-1;
 		
