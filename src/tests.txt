@@ -1,12 +1,32 @@
-Conexo con DS:
-100-99
-tiempos
-1622
-1804
-1401
-1832
-1776
+Conexo con BFS:
+Caso 0
+Tiempo: 82
+Caso 1
+Tiempo: 92
+Caso 2
+Tiempo: 82
+Caso 3
+Tiempo: 110
+Caso 4
+Tiempo: 125
 
+extremo
+Tiempo: 130
+
+Conexo con DS:
+Caso 0
+Tiempo: 2
+Caso 1
+Tiempo: 10
+Caso 2
+Tiempo: 2
+Caso 3
+Tiempo: 52
+Caso 4
+Tiempo: 150
+
+extremo
+Tiempo: 275
 
 
 
